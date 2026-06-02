@@ -51,7 +51,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .card-row{display:flex;justify-content:space-between;font-size:11px;}
 .cd-key{color:#bbb;}
 .cd-val{color:#333;font-weight:500;text-align:right;max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.card-row-left{display:flex;align-items:center;gap:5px;font-size:11px;flex-wrap:wrap;}
+.card-row-left{display:flex;align-items:center;gap:5px;font-size:11px;flex-wrap:nowrap;overflow:hidden;}
 .card-tags{display:flex;flex-wrap:wrap;gap:4px;}
 .tag{font-size:11px;padding:3px 8px;border-radius:999px;font-weight:500;}
 .tag-m{background:#E6F1FB;color:#185FA5;}
@@ -205,7 +205,7 @@ function renderCards(){
         <div class="card-detail">
           <div class="card-row-left"><span class="cd-key" style="min-width:42px;">닮은꼴</span><span class="tag ${isMale?'tag-m':'tag-f'}" style="padding:2px 8px;">${d['닮은꼴']||'—'}</span></div>
           <div class="card-row-left"><span class="cd-key" style="min-width:42px;">MBTI</span><span class="tag tag-mbti" style="padding:2px 8px;">${d['MBTI']||'—'}</span></div>
-          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">태그</span><div style="display:flex;gap:3px;flex-wrap:wrap;">${(d['성격']||'').split(' ').filter(Boolean).map(t=>'<span class="tag tag-hashtag" style="padding:2px 7px;">'+t+'</span>').join('')||'—'}</div></div>
+          <div class="card-row-left"><span class="cd-key" style="min-width:42px;flex-shrink:0;">태그</span><div style="display:flex;gap:3px;flex-wrap:nowrap;overflow:hidden;">${(d['성격']||'').split(' ').filter(Boolean).map(t=>'<span class="tag tag-hashtag" style="padding:2px 6px;font-size:10px;white-space:nowrap;">'+t+'</span>').join('')||'—'}</div></div>
         </div>
       </div>`;
     grid.appendChild(card);
