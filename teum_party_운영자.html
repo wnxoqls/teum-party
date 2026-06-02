@@ -226,9 +226,7 @@ function renderCards(){
         <div class="card-top">
           <div class="card-top-left">
             <div class="card-avatar" style="background:${avatarBg};color:${avatarColor}">${genderLabel}</div>
-            <div class="card-name-wrap">
-              <div class="card-name">${d['이름']||'—'}${isNew?'<span class="badge-new">NEW</span>':''}</div>
-            </div>
+            <div class="card-name">${d['이름']||'—'}${isNew?'<span class="badge-new">NEW</span>':''}</div>
           </div>
           <span class="status-badge ${status}">${status}</span>
         </div>
@@ -239,10 +237,10 @@ function renderCards(){
           <div class="card-row"><span class="cd-key">직업</span><span class="cd-val">${d['직업']||'—'}</span></div>
         </div>
         <div class="card-divider"></div>
-        <div class="card-detail">
-          <div class="card-row"><span class="cd-key">닮은꼴</span><span class="cd-val">${d['닮은꼴']||'—'}</span></div>
-          <div class="card-row"><span class="cd-key">태그</span><span class="cd-val">${(d['성격']||'—').split(' ').slice(0,2).join(' ')}</span></div>
-          <div class="card-row"><span class="cd-key">MBTI</span><span class="cd-val">${d['MBTI']||'—'}</span></div>
+        <div class="card-tags" style="gap:5px;flex-wrap:wrap;">
+          <span class="tag ${isMale?'tag-m':'tag-f'}">${d['닮은꼴']||'—'}</span>
+          ${(d['성격']||'').split(' ').filter(Boolean).slice(0,2).map(t=>`<span class="tag tag-mbti">${t}</span>`).join('')}
+          <span class="tag tag-mbti">${d['MBTI']||'—'}</span>
         </div>
       </div>
     `;
