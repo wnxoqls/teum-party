@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>틈파티 관리자 대시보드</title>
+<link href="https://fonts.googleapis.com/css2?family=Gmarket+Sans:wght@300;500;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;padding:1.5rem 1rem 3rem;}
+.wrap{max-width:960px;margin:0 auto;}
+
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #fce4ec;}
+.header h1{font-size:20px;font-weight:700;color:#1a1a1a;}
+.header h1 em{font-style:normal;color:#e91e8c;}
+.refresh-btn{padding:8px 18px;border-radius:999px;border:1.5px solid #e91e8c;background:#fff;color:#e91e8c;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;}
+.refresh-btn:hover{background:#fff0f8;}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem;}
+.stat{background:#fff;border-radius:14px;padding:1rem 1.25rem;border:1px solid #fce4ec;text-align:center;}
+.stat-label{font-size:12px;color:#999;margin-bottom:4px;}
+.stat-num{font-size:26px;font-weight:700;color:#1a1a1a;}
+.stat-num.pink{color:#e91e8c;}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center;}
+.filter-label{font-size:13px;color:#888;}
+.pill{font-size:12px;padding:6px 14px;border-radius:999px;border:1.5px solid #e0e0e0;background:#fff;color:#888;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;font-weight:500;}
+.pill:hover{border-color:#f48fb1;color:#c2185b;}
+.pill.active{background:#e91e8c;border-color:#e91e8c;color:#fff;font-weight:700;}
+.search-input{flex:1;min-width:160px;height:36px;font-size:13px;border:1.5px solid #e0e0e0;border-radius:999px;padding:0 14px;background:#fff;color:#1a1a1a;outline:none;font-family:'Gmarket Sans',sans-serif;}
+.search-input:focus{border-color:#e91e8c;}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+.card{background:#fff;border:1px solid #fce4ec;border-radius:18px;overflow:hidden;cursor:pointer;transition:all 0.18s;}
+.card:hover{border-color:#e91e8c;transform:translateY(-3px);}
+.card-photo{width:100%;height:160px;object-fit:cover;background:#f5f5f5;display:block;}
+.card-photo-placeholder{width:100%;height:160px;background:#fce4ec;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:700;color:#e91e8c;}
+.card-body{padding:12px 14px 14px;}
+.card-name{font-size:15px;font-weight:700;color:#1a1a1a;display:flex;align-items:center;gap:6px;}
+.badge-new{font-size:10px;padding:2px 7px;border-radius:999px;background:#fff0f8;color:#e91e8c;border:1px solid #f8bbd0;font-weight:700;}
+.card-info{font-size:12px;color:#888;margin-top:3px;}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.tag{font-size:11px;padding:3px 8px;border-radius:999px;font-weight:500;}
+.tag-m{background:#E6F1FB;color:#185FA5;}
+.tag-f{background:#fce4ec;color:#993556;}
+.tag-mbti{background:#f3f0ff;color:#5b21b6;}
+
+.loading{text-align:center;padding:3rem;color:#bbb;font-size:14px;}
+.empty{text-align:center;padding:2rem;color:#bbb;font-size:14px;}
+
+/* 모달 */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;}
+.modal-bg.open{display:flex;}
+.modal{background:#fff;border-radius:24px;width:400px;max-width:95vw;position:relative;overflow:hidden;margin:auto;}
+.modal-photos{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.modal-photo{width:100%;height:200px;object-fit:cover;background:#f5f5f5;display:block;}
+.modal-photo-placeholder{width:100%;height:200px;background:#fce4ec;display:flex;align-items:center;justify-content:center;font-size:48px;color:#e91e8c;}
+.modal-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,0.4);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;z-index:10;}
+.modal-close:hover{background:rgba(0,0,0,0.6);}
+.modal-content{padding:1.25rem 1.5rem 1.5rem;}
+.modal-name{font-size:20px;font-weight:700;color:#1a1a1a;}
+.modal-sub{font-size:13px;color:#888;margin-top:3px;}
+.divider{height:0.5px;background:#f0f0f0;margin:12px 0;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.info-item{background:#fafafa;border-radius:10px;padding:8px 10px;}
+.info-key{font-size:11px;color:#999;margin-bottom:2px;}
+.info-val{font-size:13px;font-weight:700;color:#1a1a1a;}
+.info-full{background:#fafafa;border-radius:10px;padding:8px 10px;margin-top:8px;}
+.tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
+.ptag{font-size:12px;padding:4px 10px;border-radius:999px;background:#fff0f8;color:#993556;border:1px solid #f4c0d1;font-weight:500;}
+.insta-link{color:#e91e8c;font-weight:700;text-decoration:none;}
+.insta-link:hover{text-decoration:underline;}
+.memo-label{font-size:12px;color:#888;font-weight:700;margin:12px 0 6px;}
+.memo-area{width:100%;font-size:13px;border:1.5px solid #e0e0e0;border-radius:10px;padding:8px 10px;background:#fafafa;color:#1a1a1a;resize:none;font-family:'Gmarket Sans',sans-serif;outline:none;transition:border-color 0.15s;}
+.memo-area:focus{border-color:#e91e8c;}
+.approve-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.btn-approve{height:44px;border-radius:12px;border:none;background:#e91e8c;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
+.btn-approve:hover{opacity:0.88;}
+.btn-reject{height:44px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fff;color:#999;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
+.btn-reject:hover{border-color:#bbb;color:#666;}
+
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>✨ 틈파티 <em>관리자</em> 대시보드</h1>
+    <button class="refresh-btn" onclick="loadData()">↻ 새로고침</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">전체 신청자</div><div class="stat-num pink" id="cnt-total">-</div></div>
+    <div class="stat"><div class="stat-label">남성</div><div class="stat-num" id="cnt-m">-</div></div>
+    <div class="stat"><div class="stat-label">여성</div><div class="stat-num" id="cnt-f">-</div></div>
+    <div class="stat"><div class="stat-label">오늘 신청</div><div class="stat-num" id="cnt-today">-</div></div>
+  </div>
+
+  <div class="filters">
+    <span class="filter-label">성별</span>
+    <button class="pill active" onclick="setFilter('gender','전체',this)">전체</button>
+    <button class="pill" onclick="setFilter('gender','남성',this)">남성</button>
+    <button class="pill" onclick="setFilter('gender','여성',this)">여성</button>
+    <span class="filter-label" style="margin-left:8px;">나이</span>
+    <button class="pill active" onclick="setFilter('age','전체',this)">전체</button>
+    <button class="pill" onclick="setFilter('age','20대',this)">20대</button>
+    <button class="pill" onclick="setFilter('age','30대',this)">30대</button>
+    <input class="search-input" id="search" placeholder="이름·직업·MBTI 검색..." oninput="renderCards()"/>
+  </div>
+
+  <div class="grid" id="grid"><div class="loading">데이터 불러오는 중... 🩷</div></div>
+</div>
+
+<!-- 모달 -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="document.getElementById('modal-bg').classList.remove('open')">×</button>
+    <div id="modal-inner"></div>
+  </div>
+</div>
+
+<script>
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnNJfY-IRhpZDCHHQW2F2znYoCWaMUVPn8CWRdQ9SCgfrSFCzCh0UddIJl711LsbonGA/exec';
+const avatarColors=[
+  {bg:'#E6F1FB',text:'#185FA5'},
+  {bg:'#fce4ec',text:'#993556'},
+  {bg:'#e8f5e9',text:'#2e7d32'},
+  {bg:'#f3e5f5',text:'#6a1b9a'},
+  {bg:'#fff3e0',text:'#e65100'},
+  {bg:'#e0f7fa',text:'#00695c'},
+];
+
+let allData=[], filters={gender:'전체',age:'전체'};
+
+function loadData(){
+  document.getElementById('grid').innerHTML='<div class="loading">데이터 불러오는 중... 🩷</div>';
+  fetch(SCRIPT_URL)
+    .then(r=>r.json())
+    .then(data=>{
+      allData=data;
+      updateStats();
+      renderCards();
+    })
+    .catch(()=>{
+      document.getElementById('grid').innerHTML='<div class="empty">데이터를 불러오지 못했어요 😢<br>잠시 후 새로고침 해주세요</div>';
+    });
+}
+
+function updateStats(){
+  const today=new Date().toLocaleDateString('ko-KR');
+  document.getElementById('cnt-total').textContent=allData.length;
+  document.getElementById('cnt-m').textContent=allData.filter(d=>d['성별']==='남성').length;
+  document.getElementById('cnt-f').textContent=allData.filter(d=>d['성별']==='여성').length;
+  document.getElementById('cnt-today').textContent=allData.filter(d=>
+    new Date(d['신청일시']).toLocaleDateString('ko-KR')===today
+  ).length;
+}
+
+function setFilter(key,val,el){
+  filters[key]=val;
+  el.closest('.filters').querySelectorAll(`[onclick*="'${key}'"]`).forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderCards();
+}
+
+function renderCards(){
+  const q=document.getElementById('search').value.toLowerCase();
+  const filtered=allData.filter(d=>{
+    const g=d['성별']||'';
+    const age=parseInt(d['나이'])||0;
+    if(filters.gender!=='전체'&&g!==filters.gender)return false;
+    if(filters.age==='20대'&&(age<20||age>29))return false;
+    if(filters.age==='30대'&&(age<30||age>39))return false;
+    if(q&&!JSON.stringify(d).toLowerCase().includes(q))return false;
+    return true;
+  });
+
+  const grid=document.getElementById('grid');
+  if(!filtered.length){grid.innerHTML='<div class="empty">해당하는 신청자가 없어요</div>';return;}
+
+  grid.innerHTML='';
+  filtered.forEach((d,i)=>{
+    const c=avatarColors[i%avatarColors.length];
+    const isMale=d['성별']==='남성';
+    const today=new Date().toLocaleDateString('ko-KR');
+    const isNew=new Date(d['신청일시']).toLocaleDateString('ko-KR')===today;
+    const faceUrl=d['얼굴사진URL']&&d['얼굴사진URL']!=='—'?d['얼굴사진URL']:null;
+
+    const card=document.createElement('div');
+    card.className='card';
+    card.onclick=()=>openModal(d,c);
+    card.innerHTML=`
+      ${faceUrl
+        ?`<img class="card-photo" src="${faceUrl}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/><div class="card-photo-placeholder" style="display:none">${d['이름']?d['이름'].slice(0,2):'??'}</div>`
+        :`<div class="card-photo-placeholder">${d['이름']?d['이름'].slice(0,2):'??'}</div>`
+      }
+      <div class="card-body">
+        <div class="card-name">${d['이름']||'—'}${isNew?'<span class="badge-new">NEW</span>':''}</div>
+        <div class="card-info">${d['나이']||''} · ${d['키']||''} · ${d['직업']||''}</div>
+        <div class="card-tags">
+          <span class="tag ${isMale?'tag-m':'tag-f'}">${d['성별']||''}</span>
+          <span class="tag tag-mbti">${d['MBTI']||''}</span>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openModal(d,c){
+  const faceUrl=d['얼굴사진URL']&&d['얼굴사진URL']!=='—'?d['얼굴사진URL']:null;
+  const bodyUrl=d['전신사진URL']&&d['전신사진URL']!=='—'?d['전신사진URL']:null;
+  const tags=(d['성격']||'').split(' ').filter(Boolean);
+
+  document.getElementById('modal-inner').innerHTML=`
+    <div class="modal-photos">
+      ${faceUrl
+        ?`<img class="modal-photo" src="${faceUrl}" onerror="this.outerHTML='<div class=\\'modal-photo-placeholder\\'>🤳</div>'">`
+        :`<div class="modal-photo-placeholder">🤳</div>`
+      }
+      ${bodyUrl
+        ?`<img class="modal-photo" src="${bodyUrl}" onerror="this.outerHTML='<div class=\\'modal-photo-placeholder\\'>🧍</div>'">`
+        :`<div class="modal-photo-placeholder">🧍</div>`
+      }
+    </div>
+    <div class="modal-content">
+      <div class="modal-name">${d['이름']||'—'}</div>
+      <div class="modal-sub">${d['직업']||''} · ${d['연도']||''} · ${d['나이']||''}</div>
+      <div class="divider"></div>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-key">성별</div><div class="info-val">${d['성별']||'—'}</div></div>
+        <div class="info-item"><div class="info-key">키</div><div class="info-val">${d['키']||'—'}</div></div>
+        <div class="info-item"><div class="info-key">MBTI</div><div class="info-val">${d['MBTI']||'—'}</div></div>
+        <div class="info-item"><div class="info-key">닮은꼴</div><div class="info-val">${d['닮은꼴']||'—'}</div></div>
+        <div class="info-item"><div class="info-key">연락처</div><div class="info-val">${d['연락처']||'—'}</div></div>
+        <div class="info-item"><div class="info-key">인스타</div><div class="info-val">${d['인스타']&&d['인스타']!=='—'?`<a class="insta-link" href="https://instagram.com/${d['인스타'].replace('@','')}" target="_blank">${d['인스타']}</a>`:'-'}</div></div>
+      </div>
+      <div class="info-full">
+        <div class="info-key">성격 태그</div>
+        <div class="tags-row">${tags.map(t=>`<span class="ptag">${t}</span>`).join('')||'—'}</div>
+      </div>
+      <div class="divider"></div>
+      <div class="memo-label">운영자 메모</div>
+      <textarea class="memo-area" rows="3" placeholder="매칭 메모, 특이사항 등..."></textarea>
+      <div class="approve-row">
+        <button class="btn-approve">✅ 승인</button>
+        <button class="btn-reject">❌ 보류</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function closeModal(e){
+  if(e.target===document.getElementById('modal-bg'))
+    document.getElementById('modal-bg').classList.remove('open');
+}
+
+loadData();
+</script>
+</body>
+</html>
