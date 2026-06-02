@@ -400,11 +400,21 @@ function updatePreview(){
 
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnNJfY-IRhpZDCHHQW2F2znYoCWaMUVPn8CWRdQ9SCgfrSFCzCh0UddIJl711LsbonGA/exec';
 
-function fileToBase64(file){
-  return new Promise((resolve,reject)=>{
+function compressImage(file,maxWidth=800,quality=0.7){
+  return new Promise((resolve)=>{
     const reader=new FileReader();
-    reader.onload=()=>resolve(reader.result);
-    reader.onerror=reject;
+    reader.onload=(e)=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        let w=img.width,h=img.height;
+        if(w>maxWidth){h=Math.round(h*maxWidth/w);w=maxWidth;}
+        canvas.width=w;canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',quality));
+      };
+      img.src=e.target.result;
+    };
     reader.readAsDataURL(file);
   });
 }
@@ -418,11 +428,11 @@ async function submit(){
   if(otherOn&&otherVal)finalTags.push(otherVal);
   const id='TEUM'+Date.now().toString().slice(-6);
 
-  // 사진 base64 변환
+  // 사진 압축 후 base64 변환
   const faceFile=document.getElementById('inp-face').files[0];
   const bodyFile=document.getElementById('inp-body').files[0];
-  const faceBase64=faceFile?await fileToBase64(faceFile):null;
-  const bodyBase64=bodyFile?await fileToBase64(bodyFile):null;
+  const faceBase64=faceFile?await compressImage(faceFile):null;
+  const bodyBase64=bodyFile?await compressImage(bodyFile):null;
 
   const payload={
     id,
