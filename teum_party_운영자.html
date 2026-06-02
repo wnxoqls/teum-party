@@ -14,8 +14,12 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .header h1 em{font-style:normal;color:#e91e8c;}
 .refresh-btn{padding:8px 18px;border-radius:999px;border:1.5px solid #e91e8c;background:#fff;color:#e91e8c;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
 .refresh-btn:hover{background:#fff0f8;}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:1.5rem;}
+.stats{display:grid;grid-template-columns:2fr 2fr 1fr;gap:12px;margin-bottom:1.5rem;}
 .stat{background:#fff;border-radius:14px;padding:1rem;border:1px solid #fce4ec;text-align:center;}
+.stat-sub-row{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:4px;}
+.stat-sub{font-size:12px;color:#888;}
+.stat-sub b{font-weight:700;color:#1a1a1a;}
+.stat-divider{color:#ddd;font-size:12px;}
 .stat-label{font-size:11px;color:#999;margin-bottom:4px;}
 .stat-num{font-size:22px;font-weight:700;color:#1a1a1a;}
 .stat-num.pink{color:#e91e8c;}
@@ -53,7 +57,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .cd-val{color:#333;font-weight:500;text-align:right;max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .card-row-left{display:flex;align-items:center;gap:5px;font-size:11px;flex-wrap:nowrap;overflow:hidden;}
 .card-tags{display:flex;flex-wrap:wrap;gap:4px;}
-.tag{font-size:11px;padding:3px 8px;border-radius:999px;font-weight:500;}
+.tag{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:500;white-space:nowrap;}
 .tag-m{background:#E6F1FB;color:#185FA5;}
 .tag-f{background:#fce4ec;color:#993556;}
 .tag-mbti{background:#f3f0ff;color:#5b21b6;}
@@ -99,11 +103,28 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
     <button class="refresh-btn" onclick="loadData()">↻ 새로고침</button>
   </div>
   <div class="stats">
-    <div class="stat"><div class="stat-label">전체</div><div class="stat-num pink" id="cnt-total">-</div></div>
-    <div class="stat"><div class="stat-label">남성</div><div class="stat-num" id="cnt-m">-</div></div>
-    <div class="stat"><div class="stat-label">여성</div><div class="stat-num" id="cnt-f">-</div></div>
-    <div class="stat"><div class="stat-label">승인</div><div class="stat-num green" id="cnt-approved">-</div></div>
-    <div class="stat"><div class="stat-label">탈락</div><div class="stat-num red" id="cnt-rejected">-</div></div>
+    <div class="stat stat-wide">
+      <div class="stat-label">전체 지원자</div>
+      <div class="stat-num pink" id="cnt-total">-</div>
+      <div class="stat-sub-row">
+        <span class="stat-sub">남 <b id="cnt-m">-</b></span>
+        <span class="stat-divider">/</span>
+        <span class="stat-sub">여 <b id="cnt-f">-</b></span>
+      </div>
+    </div>
+    <div class="stat stat-wide">
+      <div class="stat-label">승인</div>
+      <div class="stat-num green" id="cnt-approved-m">-</div>
+      <div class="stat-sub-row">
+        <span class="stat-sub">남 <b id="cnt-approved-m-sub">-</b></span>
+        <span class="stat-divider">/</span>
+        <span class="stat-sub">여 <b id="cnt-approved-f">-</b></span>
+      </div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">탈락</div>
+      <div class="stat-num red" id="cnt-rejected">-</div>
+    </div>
   </div>
   <div class="filters">
     <span class="filter-label">성별</span>
@@ -148,10 +169,16 @@ function loadData(){
 function updateStats(){
   const now=new Date();
   const y=now.getFullYear(),m=now.getMonth()+1,d=now.getDate();
+  const mCnt=allData.filter(d=>d['성별']==='남성').length;
+  const fCnt=allData.filter(d=>d['성별']==='여성').length;
+  const mApp=allData.filter(d=>d['성별']==='남성'&&d['상태']==='승인').length;
+  const fApp=allData.filter(d=>d['성별']==='여성'&&d['상태']==='승인').length;
   document.getElementById('cnt-total').textContent=allData.length;
-  document.getElementById('cnt-m').textContent=allData.filter(d=>d['성별']==='남성').length;
-  document.getElementById('cnt-f').textContent=allData.filter(d=>d['성별']==='여성').length;
-  document.getElementById('cnt-approved').textContent=allData.filter(d=>d['상태']==='승인').length;
+  document.getElementById('cnt-m').textContent=mCnt;
+  document.getElementById('cnt-f').textContent=fCnt;
+  document.getElementById('cnt-approved-m').textContent=mApp+fApp;
+  document.getElementById('cnt-approved-m-sub').textContent=mApp;
+  document.getElementById('cnt-approved-f').textContent=fApp;
   document.getElementById('cnt-rejected').textContent=allData.filter(d=>d['상태']==='탈락').length;
   const todayCnt=allData.filter(p=>{
     const s=String(p['신청일시']||'');
@@ -203,8 +230,8 @@ function renderCards(){
         <div class="card-sub">${d['나이']||''} · ${d['키']||''} · ${d['직업']||''}</div>
         <div class="card-divider"></div>
         <div class="card-detail">
-          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">닮은꼴</span><span class="tag ${isMale?'tag-m':'tag-f'}" style="padding:2px 8px;">${d['닮은꼴']||'—'}</span></div>
-          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">MBTI</span><span class="tag tag-mbti" style="padding:2px 8px;">${d['MBTI']||'—'}</span></div>
+          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">닮은꼴</span><span class="tag ${isMale?'tag-m':'tag-f'}">${d['닮은꼴']||'—'}</span></div>
+          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">MBTI</span><span class="tag tag-mbti">${d['MBTI']||'—'}</span></div>
           <div class="card-row-left"><span class="cd-key" style="min-width:42px;flex-shrink:0;">태그</span><div style="display:flex;gap:3px;flex-wrap:nowrap;overflow:hidden;">${(d['성격']||'').split(' ').filter(Boolean).map(t=>'<span class="tag tag-hashtag" style="padding:2px 6px;font-size:10px;white-space:nowrap;">'+t+'</span>').join('')||'—'}</div></div>
         </div>
       </div>`;
