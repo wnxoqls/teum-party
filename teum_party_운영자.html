@@ -218,25 +218,31 @@ function renderCards(){
     const card=document.createElement('div');
     card.className='card'+(status==='승인'?' approved':status==='탈락'?' rejected':'');
     card.onclick=()=>openModal(d,c);
+    const avatarBg=isMale?'#E6F1FB':'#fce4ec';
+    const avatarColor=isMale?'#185FA5':'#993556';
+    const genderLabel=isMale?'남':'여';
     card.innerHTML=`
-      <span class="status-badge ${status}">${status}</span>
       <div class="card-body">
         <div class="card-top">
-          <div class="card-avatar" style="background:${c.bg};color:${c.text}">${d['이름']?d['이름'].slice(0,2):'??'}</div>
-          <div>
-            <div class="card-name">${d['이름']||'—'}${isNew?'<span class="badge-new">NEW</span>':''}</div>
-            <div class="card-sub">${d['나이']||''} · ${d['키']||''}</div>
+          <div class="card-top-left">
+            <div class="card-avatar" style="background:${avatarBg};color:${avatarColor}">${genderLabel}</div>
+            <div class="card-name-wrap">
+              <div class="card-name">${d['이름']||'—'}${isNew?'<span class="badge-new">NEW</span>':''}</div>
+            </div>
           </div>
+          <span class="status-badge ${status}">${status}</span>
         </div>
         <div class="card-divider"></div>
         <div class="card-detail">
+          <div class="card-row"><span class="cd-key">나이</span><span class="cd-val">${d['나이']||'—'}</span></div>
+          <div class="card-row"><span class="cd-key">키</span><span class="cd-val">${d['키']||'—'}</span></div>
           <div class="card-row"><span class="cd-key">직업</span><span class="cd-val">${d['직업']||'—'}</span></div>
-          <div class="card-row"><span class="cd-key">닮은꼴</span><span class="cd-val">${d['닮은꼴']||'—'}</span></div>
-          <div class="card-row"><span class="cd-key">해시태그</span><span class="cd-val">${(d['성격']||'—').split(' ').slice(0,2).join(' ')}</span></div>
         </div>
-        <div class="card-tags">
-          <span class="tag ${isMale?'tag-m':'tag-f'}">${d['성별']||''}</span>
-          <span class="tag tag-mbti">${d['MBTI']||''}</span>
+        <div class="card-divider"></div>
+        <div class="card-detail">
+          <div class="card-row"><span class="cd-key">닮은꼴</span><span class="cd-val">${d['닮은꼴']||'—'}</span></div>
+          <div class="card-row"><span class="cd-key">태그</span><span class="cd-val">${(d['성격']||'—').split(' ').slice(0,2).join(' ')}</span></div>
+          <div class="card-row"><span class="cd-key">MBTI</span><span class="cd-val">${d['MBTI']||'—'}</span></div>
         </div>
       </div>
     `;
