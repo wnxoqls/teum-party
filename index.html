@@ -398,12 +398,44 @@ function updatePreview(){
   `).join('');
 }
 
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycby6ZqwYzIlQxWagHXBI7Ee4CtUt7tYtKzLgv0jibiRcdNtKP1Tsd49V_oyMItOU_6p1FA/exec';
+
 function submit(){
+  const yr=document.getElementById('year').value;
+  const g=document.getElementById('gender-sel').value;
+  const otherOn=document.getElementById('other-tag-input').classList.contains('show');
+  const otherVal=document.getElementById('other-tag-input').value.trim();
+  let finalTags=[...selectedTags];
+  if(otherOn&&otherVal)finalTags.push(otherVal);
   const id='TEUM'+Date.now().toString().slice(-6);
+
+  const payload={
+    id,
+    name:document.getElementById('name').value,
+    gender:g+'성',
+    year:yr+'년생',
+    age:getKorAge(yr),
+    height:document.getElementById('height').value+'cm',
+    job:document.getElementById('job').value,
+    phone:document.getElementById('phone').value,
+    insta:document.getElementById('insta').value||'—',
+    look:document.getElementById('look').value||'—',
+    tags:finalTags.join(' ')||'—',
+    mbti:selectedMbti
+  };
+
+  // 완료 화면 먼저 보여주고 백그라운드로 전송
   document.getElementById('apply-id').textContent='신청 번호 '+id;
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-done').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
+
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).catch(err=>console.error('전송 실패:',err));
 }
 </script>
 </body>
