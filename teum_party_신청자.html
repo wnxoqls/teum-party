@@ -6,124 +6,68 @@
 <title>2026 외모승인 틈파티 신청서</title>
 <link href="https://fonts.googleapis.com/css2?family=Gmarket+Sans:wght@300;500;700&display=swap" rel="stylesheet"/>
 <style>
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;}
-  .wrap{max-width:480px;margin:0 auto;padding:0 1.25rem 3rem;}
-
-  .hero{padding:2rem 0 1.5rem;text-align:center;}
-  .hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.08em;padding:5px 14px;border-radius:999px;background:#fff0f5;color:#c2185b;border:1px solid #f8bbd0;margin-bottom:14px;}
-  .hero h1{font-size:27px;font-weight:700;line-height:1.4;color:#1a1a1a;}
-  .hero h1 em{font-style:normal;color:#e91e8c;}
-  .hero p{font-size:13px;color:#555;margin-top:8px;line-height:1.9;}
-
-  /* step track */
-  .step-track{display:flex;align-items:center;margin:0 0 1.75rem;}
-  .st{display:flex;flex-direction:column;align-items:center;flex:1;}
-  .st-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid #ddd;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all 0.25s;color:#777;}
-  .st.on .st-dot{background:#e91e8c;border-color:#e91e8c;color:#fff;}
-  .st.done .st-dot{background:#fce4ec;border-color:#e91e8c;color:#e91e8c;font-size:12px;}
-  .st-line{flex:1;height:1.5px;background:#eee;transition:background 0.3s;}
-  .st-line.done{background:#e91e8c;}
-
-  /* steps */
-  .step{display:none;flex-direction:column;gap:1.1rem;animation:fadeUp 0.25s ease;}
-  .step.active{display:flex;}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-
-  .section-label{font-size:12px;font-weight:700;letter-spacing:0.08em;color:#e91e8c;}
-  .field{display:flex;flex-direction:column;gap:5px;}
-  .field label{font-size:13px;color:#444;}
-  .req{color:#e91e8c;}
-  .field input{height:48px;border-radius:12px;border:1.5px solid #e0e0e0;padding:0 14px;font-size:15px;color:#111;background:#fff;width:100%;outline:none;font-family:'Gmarket Sans',sans-serif;transition:border-color 0.15s,box-shadow 0.15s;}
-  .field input:focus{border-color:#e91e8c;box-shadow:0 0 0 3px rgba(233,30,140,0.08);}
-  .field input::placeholder{color:#777;}
-  .select-wrap{position:relative;}
-  .select-wrap select{height:48px;border-radius:12px;border:1.5px solid #e0e0e0;padding:0 14px;font-size:15px;color:#111;background:#fff;width:100%;outline:none;font-family:'Gmarket Sans',sans-serif;transition:border-color 0.15s,box-shadow 0.15s;appearance:none;-webkit-appearance:none;cursor:pointer;}
-  .select-wrap select:focus{border-color:#e91e8c;box-shadow:0 0 0 3px rgba(233,30,140,0.08);}
-  .select-wrap::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;color:#777;pointer-events:none;}
-  .hint{font-size:11px;color:#888;line-height:1.6;}
-  .hint.pink{color:#e91e8c;font-weight:700;}
-  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-
-  /* photo */
-  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-  .photo-box{border:1.5px dashed #ddd;border-radius:14px;height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden;background:#fafafa;}
-  .photo-box:hover{border-color:#e91e8c;background:#fff0f8;}
-  .photo-box.filled{border-style:solid;border-color:#e91e8c;}
-  .photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:12px;}
-  .photo-box .overlay{position:absolute;inset:0;background:rgba(233,30,140,0.5);display:flex;align-items:center;justify-content:center;border-radius:12px;opacity:0;transition:opacity 0.15s;color:#fff;font-size:13px;font-weight:700;}
-  .photo-box:hover .overlay{opacity:1;}
-  .photo-box .plabel{font-size:13px;color:#333;font-weight:700;position:relative;z-index:1;}
-  .photo-box .picon{font-size:30px;position:relative;z-index:1;}
-  .photo-box .psub{font-size:11px;color:#888;position:relative;z-index:1;}
-  .photo-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:#e91e8c;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;z-index:2;}
-
-  /* tags */
-  .tags-grid{display:flex;flex-wrap:wrap;gap:8px;}
-  .tag-btn{
-    padding:9px 16px;border-radius:10px;
-    border:1.5px solid #e0e0e0;
-    background:#fff;
-    font-size:13px;font-weight:500;cursor:pointer;
-    color:#444;
-    font-family:'Gmarket Sans',sans-serif;
-    transition:all 0.18s;
-  }
-  .tag-btn:hover{border-color:#f48fb1;color:#c2185b;}
-  .tag-btn.selected{
-    border-color:#e91e8c;
-    background:#e91e8c;
-    color:#fff;
-    font-weight:700;
-  }
-  .tag-count{font-size:11px;color:#888;margin-top:4px;}
-  .other-input{height:44px;border-radius:10px;border:1.5px solid #e0e0e0;padding:0 12px;font-size:14px;color:#1a1a1a;background:#fff;width:100%;outline:none;font-family:'Gmarket Sans',sans-serif;margin-top:6px;display:none;transition:border-color 0.15s;}
-  .other-input.show{display:block;}
-  .other-input:focus{border-color:#e91e8c;}
-
-  /* mbti */
-  .mbti-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-  .mbti-btn{
-    height:48px;border-radius:10px;
-    border:1.5px solid #e0e0e0;
-    background:#fff;
-    font-size:13px;font-weight:700;cursor:pointer;
-    color:#444;
-    font-family:'Gmarket Sans',sans-serif;
-    transition:all 0.18s;letter-spacing:0.02em;
-  }
-  .mbti-btn:hover{border-color:#f48fb1;color:#c2185b;}
-  .mbti-btn.selected{
-    border-color:#e91e8c;
-    background:#e91e8c;
-    color:#fff;
-  }
-
-  /* buttons */
-  .btn-next{width:100%;height:52px;border-radius:12px;border:none;background:#e91e8c;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:opacity 0.15s,transform 0.1s;letter-spacing:0.02em;margin-top:0.25rem;}
-  .btn-next:hover{opacity:0.9;}
-  .btn-next:active{transform:scale(0.98);}
-  .btn-back{background:none;border:1.5px solid #e0e0e0;color:#777;width:100%;height:44px;border-radius:12px;font-size:14px;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;}
-  .btn-back:hover{border-color:#777;color:#444;}
-
-  /* preview */
-  .preview-card{background:#fafafa;border-radius:14px;padding:1rem 1.25rem;border:1px solid #eee;}
-  .preview-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid #eee;font-size:13px;}
-  .preview-row:last-child{border-bottom:none;}
-  .preview-key{color:#777;flex-shrink:0;}
-  .preview-val{color:#1a1a1a;font-weight:500;text-align:right;max-width:65%;}
-
-  /* success */
-  .success-wrap{text-align:center;padding:2rem 0;animation:fadeUp 0.4s ease;}
-  .confetti-row{font-size:30px;letter-spacing:4px;margin-bottom:16px;}
-  .success-badge{display:inline-block;padding:10px 24px;border-radius:999px;background:#fff0f8;border:1.5px solid #f48fb1;color:#c2185b;font-size:14px;font-weight:700;margin-bottom:16px;}
-  .success-wrap h2{font-size:22px;font-weight:700;color:#1a1a1a;}
-  .success-wrap p{font-size:13px;color:#555;margin-top:8px;line-height:1.9;}
-  .success-id{display:inline-block;margin-top:16px;font-size:12px;color:#777;background:#f5f5f5;padding:6px 14px;border-radius:8px;}
-
-  .err{font-size:11px;color:#e91e8c;display:none;margin-top:2px;}
-  .err.show{display:block;}
-  .info-box{font-size:12px;line-height:1.8;padding:10px 12px;background:#fafafa;border-radius:10px;border:0.5px solid #eee;color:#555;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;}
+.wrap{max-width:480px;margin:0 auto;padding:0 1.25rem 3rem;}
+.hero{padding:2rem 0 1.5rem;text-align:center;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.08em;padding:5px 14px;border-radius:999px;background:#fff0f5;color:#c2185b;border:1px solid #f8bbd0;margin-bottom:14px;}
+.hero h1{font-size:27px;font-weight:700;line-height:1.4;color:#1a1a1a;}
+.hero h1 em{font-style:normal;color:#e91e8c;}
+.hero p{font-size:13px;color:#555;margin-top:8px;line-height:1.9;}
+.step-track{display:flex;align-items:center;margin:0 0 1.75rem;}
+.st{display:flex;flex-direction:column;align-items:center;flex:1;}
+.st-dot{width:28px;height:28px;border-radius:50%;border:1.5px solid #ddd;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;transition:all 0.25s;color:#777;}
+.st.on .st-dot{background:#e91e8c;border-color:#e91e8c;color:#fff;}
+.st.done .st-dot{background:#fce4ec;border-color:#e91e8c;color:#e91e8c;font-size:12px;}
+.st-line{flex:1;height:1.5px;background:#eee;transition:background 0.3s;}
+.st-line.done{background:#e91e8c;}
+.step{display:none;flex-direction:column;gap:1.1rem;animation:fadeUp 0.25s ease;}
+.step.active{display:flex;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.section-label{font-size:12px;font-weight:700;letter-spacing:0.08em;color:#e91e8c;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:13px;color:#444;}
+.req{color:#e91e8c;}
+.field input{height:48px;border-radius:12px;border:1.5px solid #e0e0e0;padding:0 14px;font-size:15px;color:#111;background:#fff;width:100%;outline:none;font-family:'Gmarket Sans',sans-serif;transition:border-color 0.15s,box-shadow 0.15s;}
+.field input:focus{border-color:#e91e8c;box-shadow:0 0 0 3px rgba(233,30,140,0.08);}
+.field input::placeholder{color:#777;}
+.select-wrap{position:relative;}
+.select-wrap select{height:48px;border-radius:12px;border:1.5px solid #e0e0e0;padding:0 14px;font-size:15px;color:#111;background:#fff;width:100%;outline:none;font-family:'Gmarket Sans',sans-serif;transition:border-color 0.15s,box-shadow 0.15s;appearance:none;-webkit-appearance:none;cursor:pointer;}
+.select-wrap select:focus{border-color:#e91e8c;box-shadow:0 0 0 3px rgba(233,30,140,0.08);}
+.select-wrap::after{content:'▾';position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:14px;color:#777;pointer-events:none;}
+.hint{font-size:11px;color:#888;line-height:1.6;}
+.hint.pink{color:#e91e8c;font-weight:700;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.tags-grid{display:flex;flex-wrap:wrap;gap:8px;}
+.tag-btn{padding:9px 16px;border-radius:10px;border:1.5px solid #e0e0e0;background:#fff;font-size:13px;font-weight:500;cursor:pointer;color:#444;font-family:'Gmarket Sans',sans-serif;transition:all 0.18s;}
+.tag-btn:hover{border-color:#f48fb1;color:#c2185b;}
+.tag-btn.selected{border-color:#e91e8c;background:#e91e8c;color:#fff;font-weight:700;}
+.mbti-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.mbti-btn{height:48px;border-radius:10px;border:1.5px solid #e0e0e0;background:#fff;font-size:13px;font-weight:700;cursor:pointer;color:#444;font-family:'Gmarket Sans',sans-serif;transition:all 0.18s;letter-spacing:0.02em;}
+.mbti-btn:hover{border-color:#f48fb1;color:#c2185b;}
+.mbti-btn.selected{border-color:#e91e8c;background:#e91e8c;color:#fff;}
+.tag-count{font-size:11px;color:#888;margin-top:2px;}
+.other-input{height:44px;border-radius:10px;border:1.5px solid #e0e0e0;padding:0 12px;font-size:14px;color:#111;background:#fff;width:100%;outline:none;font-family:'Gmarket Sans',sans-serif;margin-top:6px;display:none;transition:border-color 0.15s;}
+.other-input.show{display:block;}
+.other-input:focus{border-color:#e91e8c;}
+.btn-next{width:100%;height:52px;border-radius:12px;border:none;background:#e91e8c;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:opacity 0.15s,transform 0.1s;letter-spacing:0.02em;margin-top:0.25rem;}
+.btn-next:hover{opacity:0.9;}
+.btn-next:active{transform:scale(0.98);}
+.btn-back{background:none;border:1.5px solid #e0e0e0;color:#777;width:100%;height:44px;border-radius:12px;font-size:14px;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;}
+.btn-back:hover{border-color:#bbb;color:#444;}
+.preview-card{background:#fafafa;border-radius:14px;padding:1rem 1.25rem;border:1px solid #eee;}
+.preview-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid #eee;font-size:13px;}
+.preview-row:last-child{border-bottom:none;}
+.preview-key{color:#777;flex-shrink:0;}
+.preview-val{color:#111;font-weight:500;text-align:right;max-width:65%;}
+.success-wrap{text-align:center;padding:2rem 0;animation:fadeUp 0.4s ease;}
+.confetti-row{font-size:30px;letter-spacing:4px;margin-bottom:16px;}
+.success-badge{display:inline-block;padding:10px 24px;border-radius:999px;background:#fff0f8;border:1.5px solid #f48fb1;color:#c2185b;font-size:14px;font-weight:700;margin-bottom:16px;}
+.success-wrap h2{font-size:22px;font-weight:700;color:#1a1a1a;}
+.success-wrap p{font-size:13px;color:#777;margin-top:8px;line-height:1.9;}
+.success-id{display:inline-block;margin-top:16px;font-size:12px;color:#bbb;background:#f5f5f5;padding:6px 14px;border-radius:8px;}
+.err{font-size:11px;color:#e91e8c;display:none;margin-top:2px;}
+.err.show{display:block;}
 </style>
 </head>
 <body>
@@ -140,11 +84,9 @@
     <div class="st" id="st1"><div class="st-dot">2</div></div>
     <div class="st-line" id="sl1"></div>
     <div class="st" id="st2"><div class="st-dot">3</div></div>
-    <div class="st-line" id="sl2"></div>
-    <div class="st" id="st3"><div class="st-dot">4</div></div>
   </div>
 
-  <!-- STEP 1 -->
+  <!-- STEP 1: 기본 정보 -->
   <div class="step active" id="s0">
     <div class="section-label">기본 정보</div>
     <div class="field">
@@ -184,22 +126,23 @@
       <span class="err" id="err-phone">연락처를 입력해 주세요</span>
     </div>
     <div class="field">
-      <label>인스타그램 계정</label>
+      <label>인스타그램 계정 <span class="req">*</span></label>
       <input id="insta" type="text" placeholder="@아이디"/>
-      <span class="hint pink">✨ 인스타 계정이 있으면 승인 확률이 높아져요!</span>
+      <span class="hint pink">✨ 인스타 계정으로 사진 확인 후 승인돼요!</span>
+      <span class="err" id="err-insta">인스타그램 계정을 입력해 주세요</span>
     </div>
     <button class="btn-next" onclick="next(0)">다음 →</button>
   </div>
 
-  <!-- STEP 2 -->
+  <!-- STEP 2: 성격 & MBTI -->
   <div class="step" id="s1">
     <div class="section-label">성격 & MBTI</div>
     <div class="field">
-      <label>닮은꼴 연예인 <span style="color:#777;font-size:11px;">(선택)</span></label>
+      <label>닮은꼴 연예인 <span style="color:#aaa;font-size:11px;">(선택)</span></label>
       <input id="look" type="text" placeholder="예) 아이유, 차은우..."/>
     </div>
     <div class="field">
-      <label>나를 표현하는 해시태그 <span class="req">*</span> <span style="color:#777;font-size:11px;">최대 3개</span></label>
+      <label>나를 표현하는 해시태그 <span class="req">*</span> <span style="color:#aaa;font-size:11px;">최대 3개</span></label>
       <div class="tags-grid" id="tags-grid"></div>
       <input class="other-input" id="other-tag-input" placeholder="직접 입력 (예: #내향적)"/>
       <div class="tag-count" id="tag-count">0 / 3개 선택</div>
@@ -214,46 +157,13 @@
     <button class="btn-back" onclick="back(1)">← 이전</button>
   </div>
 
-  <!-- STEP 3 -->
+  <!-- STEP 3: 내용 확인 -->
   <div class="step" id="s2">
-    <div class="section-label">사진 등록</div>
-    <div class="info-box">📸 최근 6개월 이내 사진으로 등록해 주세요<br>사진 2장 모두 등록해야 다음으로 넘어갈 수 있어요</div>
-    <div class="photo-grid">
-      <div>
-        <div class="photo-box" id="box-face" onclick="triggerUpload('face')">
-          <div class="picon">🤳</div>
-          <div class="plabel">얼굴 사진</div>
-          <div class="psub">클릭해서 등록</div>
-          <div class="overlay">변경하기</div>
-        </div>
-        <input type="file" id="inp-face" accept="image/*" style="display:none" onchange="previewPhoto('face',this)"/>
-      </div>
-      <div>
-        <div class="photo-box" id="box-body" onclick="triggerUpload('body')">
-          <div class="picon">🧍</div>
-          <div class="plabel">전신 사진</div>
-          <div class="psub">클릭해서 등록</div>
-          <div class="overlay">변경하기</div>
-        </div>
-        <input type="file" id="inp-body" accept="image/*" style="display:none" onchange="previewPhoto('body',this)"/>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:center;">
-      <div style="font-size:12px;color:#888;" id="status-face">⬜ 미등록</div>
-      <div style="font-size:12px;color:#888;" id="status-body">⬜ 미등록</div>
-    </div>
-    <span class="err" id="err-photo">사진 2장을 모두 등록해 주세요</span>
-    <button class="btn-next" onclick="next(2)">다음 →</button>
-    <button class="btn-back" onclick="back(2)">← 이전</button>
-  </div>
-
-  <!-- STEP 4 -->
-  <div class="step" id="s3">
     <div class="section-label">내용 확인</div>
-    <div class="hint">내용을 확인하고 문제 없으면 신청을 완료해 주세요</div>
+    <div class="hint" style="font-size:12px;">내용을 확인하고 문제 없으면 신청을 완료해 주세요</div>
     <div class="preview-card" id="preview"></div>
-    <button class="btn-next" onclick="submit()">💌 신청 완료하기</button>
-    <button class="btn-back" onclick="back(3)">← 이전</button>
+    <button class="btn-next" onclick="submitForm()">💌 신청 완료하기</button>
+    <button class="btn-back" onclick="back(2)">← 이전</button>
   </div>
 
   <!-- 완료 -->
@@ -262,15 +172,15 @@
       <div class="confetti-row">🎉🩷🎊</div>
       <div class="success-badge">외모 승인 완료 ✅</div>
       <h2>틈파티에서<br>만나요 🩷</h2>
-      <p>운영자가 검토 후<br>인스타 또는 문자로 연락드릴게요 💌</p>
+      <p>운영자가 검토 후<br>인스타 DM으로 연락드릴게요 💌</p>
       <div class="success-id" id="apply-id"></div>
     </div>
   </div>
 </div>
 
 <script>
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnNJfY-IRhpZDCHHQW2F2znYoCWaMUVPn8CWRdQ9SCgfrSFCzCh0UddIJl711LsbonGA/exec';
 let selectedTags=[], selectedMbti='';
-let photos={face:false,body:false};
 const tagOptions=['#다정함','#섹시함','#착함','#유머있음','#차분함','#활발함','#지적임','#츤데레','#엉뚱함','#감성적','#도도함','#귀여움','#털털함','#듬직함','#솔직함','#쿨함','#기타'];
 const mbtiList=['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','ISFJ','ESTJ','ESFJ','ISTP','ISFP','ESTP','ESFP'];
 
@@ -283,19 +193,6 @@ const mbtiList=['INTJ','INTP','ENTJ','ENTP','INFJ','INFP','ENFJ','ENFP','ISTJ','
 
 document.getElementById('tags-grid').innerHTML=tagOptions.map(t=>`<button class="tag-btn" onclick="toggleTag(this,'${t}')">${t}</button>`).join('');
 document.getElementById('mbti-grid').innerHTML=mbtiList.map(m=>`<button class="mbti-btn" onclick="selectMbti(this,'${m}')">${m}</button>`).join('');
-
-function triggerUpload(t){document.getElementById('inp-'+t).click();}
-function previewPhoto(type,inp){
-  if(!inp.files||!inp.files[0])return;
-  const url=URL.createObjectURL(inp.files[0]);
-  const box=document.getElementById('box-'+type);
-  box.innerHTML=`<img src="${url}"/><div class="photo-check">✓</div><div class="overlay">변경하기</div>`;
-  box.classList.add('filled');
-  box.onclick=()=>triggerUpload(type);
-  photos[type]=true;
-  const st=document.getElementById('status-'+type);
-  st.textContent='✅ 등록 완료'; st.style.color='#e91e8c';
-}
 
 function toggleTag(el,tag){
   if(tag==='#기타'){
@@ -311,7 +208,7 @@ function toggleTag(el,tag){
     selectedTags=selectedTags.filter(t=>t!==tag);
   } else {
     const otherOn=document.getElementById('other-tag-input').classList.contains('show')?1:0;
-    if(selectedTags.length>=(3-otherOn)){alert('해시태그는 최대 3개까지 선택할 수 있어요');return;}
+    if(selectedTags.length>=(3-otherOn)){alert('최대 3개까지 선택할 수 있어요');return;}
     el.classList.add('selected'); selectedTags.push(tag);
   }
   updateTagCount();
@@ -324,19 +221,19 @@ function selectMbti(el,m){
   document.querySelectorAll('.mbti-btn').forEach(b=>b.classList.remove('selected'));
   el.classList.add('selected'); selectedMbti=m;
 }
-
 function showErr(id,show){const el=document.getElementById(id);if(el)el.classList.toggle('show',show);}
 
 function setStep(n){
   document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('active',i===n));
-  [0,1,2,3].forEach(i=>{
+  [0,1,2].forEach(i=>{
     const st=document.getElementById('st'+i);
+    if(!st)return;
     st.classList.toggle('on',i===n);
     st.classList.toggle('done',i<n);
     st.querySelector('.st-dot').textContent=i<n?'✓':(i+1);
   });
-  [0,1,2].forEach(i=>{const sl=document.getElementById('sl'+i);if(sl)sl.classList.toggle('done',i<n);});
-  if(n===3)updatePreview();
+  [0,1].forEach(i=>{const sl=document.getElementById('sl'+i);if(sl)sl.classList.toggle('done',i<n);});
+  if(n===2)updatePreview();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -348,6 +245,7 @@ function next(cur){
     const h=document.getElementById('height').value;
     const job=document.getElementById('job').value.trim();
     const phone=document.getElementById('phone').value.trim();
+    const insta=document.getElementById('insta').value.trim();
     let ok=true;
     if(!name||name.length<2){showErr('err-name',true);ok=false;}else showErr('err-name',false);
     if(!g){showErr('err-gender',true);ok=false;}else showErr('err-gender',false);
@@ -355,6 +253,7 @@ function next(cur){
     if(!h){showErr('err-height',true);ok=false;}else showErr('err-height',false);
     if(!job){showErr('err-job',true);ok=false;}else showErr('err-job',false);
     if(!phone||phone.length<9){showErr('err-phone',true);ok=false;}else showErr('err-phone',false);
+    if(!insta){showErr('err-insta',true);ok=false;}else showErr('err-insta',false);
     if(!ok)return;
   }
   if(cur===1){
@@ -364,13 +263,9 @@ function next(cur){
     if(total===0){showErr('err-tags',true);return;} showErr('err-tags',false);
     if(!selectedMbti){showErr('err-mbti',true);return;} showErr('err-mbti',false);
   }
-  if(cur===2){
-    if(!photos.face||!photos.body){showErr('err-photo',true);return;} showErr('err-photo',false);
-  }
   setStep(cur+1);
 }
 function back(cur){setStep(cur-1);}
-
 function getKorAge(yr){return (2026-parseInt(yr)+1)+'살';}
 
 function updatePreview(){
@@ -391,35 +286,13 @@ function updatePreview(){
     ['닮은꼴',document.getElementById('look').value||'—'],
     ['성격',finalTags.join(' ')||'—'],
     ['MBTI',selectedMbti||'—'],
-    ['사진','얼굴 + 전신 ✅'],
   ];
   document.getElementById('preview').innerHTML=rows.map(r=>`
     <div class="preview-row"><span class="preview-key">${r[0]}</span><span class="preview-val">${r[1]}</span></div>
   `).join('');
 }
 
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwnNJfY-IRhpZDCHHQW2F2znYoCWaMUVPn8CWRdQ9SCgfrSFCzCh0UddIJl711LsbonGA/exec';
-
-function compressImage(file,maxWidth=800,quality=0.7){
-  return new Promise((resolve)=>{
-    const reader=new FileReader();
-    reader.onload=(e)=>{
-      const img=new Image();
-      img.onload=()=>{
-        const canvas=document.createElement('canvas');
-        let w=img.width,h=img.height;
-        if(w>maxWidth){h=Math.round(h*maxWidth/w);w=maxWidth;}
-        canvas.width=w;canvas.height=h;
-        canvas.getContext('2d').drawImage(img,0,0,w,h);
-        resolve(canvas.toDataURL('image/jpeg',quality));
-      };
-      img.src=e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-async function submit(){
+function submitForm(){
   const yr=document.getElementById('year').value;
   const g=document.getElementById('gender-sel').value;
   const otherOn=document.getElementById('other-tag-input').classList.contains('show');
@@ -428,41 +301,24 @@ async function submit(){
   if(otherOn&&otherVal)finalTags.push(otherVal);
   const id='TEUM'+Date.now().toString().slice(-6);
 
-  // 사진 압축 후 base64 변환
-  const faceFile=document.getElementById('inp-face').files[0];
-  const bodyFile=document.getElementById('inp-body').files[0];
-  const faceBase64=faceFile?await compressImage(faceFile):null;
-  const bodyBase64=bodyFile?await compressImage(bodyFile):null;
-
   const payload={
-    id,
-    name:document.getElementById('name').value,
-    gender:g+'성',
-    year:yr+'년생',
-    age:getKorAge(yr),
+    id, name:document.getElementById('name').value,
+    gender:g+'성', year:yr+'년생', age:getKorAge(yr),
     height:document.getElementById('height').value+'cm',
     job:document.getElementById('job').value,
     phone:document.getElementById('phone').value,
-    insta:document.getElementById('insta').value||'—',
+    insta:document.getElementById('insta').value,
     look:document.getElementById('look').value||'—',
-    tags:finalTags.join(' ')||'—',
-    mbti:selectedMbti,
-    facePhoto:faceBase64,
-    bodyPhoto:bodyBase64
+    tags:finalTags.join(' ')||'—', mbti:selectedMbti
   };
 
-  // 완료 화면 먼저 보여주고 백그라운드로 전송
   document.getElementById('apply-id').textContent='신청 번호 '+id;
   document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
   document.getElementById('s-done').classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 
-  fetch(SCRIPT_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify(payload)
-  }).catch(err=>console.error('전송 실패:',err));
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .catch(err=>console.error('전송 실패:',err));
 }
 </script>
 </body>
