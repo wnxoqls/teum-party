@@ -226,7 +226,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
     </div>
     <div class="filters" style="margin-top:-4px;">
       <span class="filter-label">파티 날짜</span>
-      <div id="date-filter-pills" style="display:flex;gap:8px;flex-wrap:wrap;">
+      <div id="date-filter-pills" style="display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
         <button class="pill active" onclick="setDateFilter('전체',this)">전체</button>
       </div>
     </div>
@@ -286,7 +286,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
   <div class="tab-content" id="tab1">
     <div style="display:flex;gap:8px;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;">
       <span class="filter-label">파티 날짜</span>
-      <div id="recruit-date-pills" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <div id="recruit-date-pills" style="display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;"></div>
     </div>
     <div id="recruit-wrap"></div>
   </div>
