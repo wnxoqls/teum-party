@@ -14,8 +14,8 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .header h1 em{font-style:normal;color:#e91e8c;}
 .refresh-btn{padding:8px 18px;border-radius:999px;border:1.5px solid #e91e8c;background:#fff;color:#e91e8c;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
 .refresh-btn:hover{background:#fff0f8;}
-.stats{display:grid;grid-template-columns:2fr 2fr 1fr;gap:12px;margin-bottom:1.5rem;}
-.stat{background:#fff;border-radius:14px;padding:1rem;border:1px solid #fce4ec;text-align:center;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;}
+.stat{background:#fff;border-radius:14px;padding:0.75rem 0.5rem;border:1px solid #fce4ec;text-align:center;}
 .stat-sub-row{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:4px;}
 .stat-sub{font-size:12px;color:#888;}
 .stat-sub b{font-weight:700;color:#1a1a1a;}
@@ -103,7 +103,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
     <button class="refresh-btn" onclick="loadData()">↻ 새로고침</button>
   </div>
   <div class="stats">
-    <div class="stat stat-wide">
+    <div class="stat">
       <div class="stat-label">전체 지원자</div>
       <div class="stat-num pink" id="cnt-total">-</div>
       <div class="stat-sub-row">
@@ -112,7 +112,11 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
         <span class="stat-sub">여 <b id="cnt-f">-</b></span>
       </div>
     </div>
-    <div class="stat stat-wide">
+    <div class="stat">
+      <div class="stat-label">검토중</div>
+      <div class="stat-num" style="color:#e65100;" id="cnt-review">-</div>
+    </div>
+    <div class="stat">
       <div class="stat-label">승인</div>
       <div class="stat-num green" id="cnt-approved-m">-</div>
       <div class="stat-sub-row">
@@ -174,6 +178,7 @@ function updateStats(){
   const mApp=allData.filter(d=>d['성별']==='남성'&&d['상태']==='승인').length;
   const fApp=allData.filter(d=>d['성별']==='여성'&&d['상태']==='승인').length;
   document.getElementById('cnt-total').textContent=allData.length;
+  document.getElementById('cnt-review').textContent=allData.filter(d=>!d['상태']||d['상태']==='검토중').length;
   document.getElementById('cnt-m').textContent=mCnt;
   document.getElementById('cnt-f').textContent=fCnt;
   document.getElementById('cnt-approved-m').textContent=mApp+fApp;
