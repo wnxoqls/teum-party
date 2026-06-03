@@ -548,7 +548,7 @@ function fillCardDateSelect(){
   sel.innerHTML='<option value="">날짜 선택</option>';
   [...partyDates].sort((a,b)=>{
     const da=parseDate(a),db=parseDate(b);
-    if(da&&db)return db-da;
+    if(da&&db)return da-db;
     return 0;
   }).forEach(d=>{
     const o=document.createElement('option');
