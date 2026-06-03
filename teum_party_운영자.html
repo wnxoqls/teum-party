@@ -9,47 +9,44 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;padding:1.5rem 1rem 3rem;}
 .wrap{max-width:960px;margin:0 auto;}
-
-/* 헤더 */
-.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #fce4ec;}
+.header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #fce4ec;}
 .header h1{font-size:20px;font-weight:700;color:#1a1a1a;}
 .header h1 em{font-style:normal;color:#e91e8c;}
-.refresh-btn{padding:8px 18px;border-radius:999px;border:1.5px solid #e91e8c;background:#fff;color:#e91e8c;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
-.refresh-btn:hover{background:#fff0f8;}
-
-/* 탭 */
+.hbtns{display:flex;gap:8px;flex-wrap:wrap;}
+.hbtn{padding:7px 16px;border-radius:999px;border:1.5px solid #e0e0e0;background:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;color:#666;}
+.hbtn.pink{border-color:#e91e8c;color:#e91e8c;}
+.hbtn.pink:hover{background:#fff0f8;}
+.hbtn.red{border-color:#c62828;color:#c62828;}
+.hbtn.red:hover{background:#ffebee;}
+.hbtn:hover{border-color:#bbb;}
 .tabs{display:flex;gap:0;margin-bottom:1.5rem;border-bottom:2px solid #fce4ec;}
 .tab{padding:10px 24px;font-size:14px;font-weight:500;color:#aaa;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all 0.2s;font-family:'Gmarket Sans',sans-serif;}
 .tab:hover{color:#e91e8c;}
 .tab.active{color:#e91e8c;font-weight:700;border-bottom:2px solid #e91e8c;}
 .tab-content{display:none;}
 .tab-content.active{display:block;}
-
-/* 통계 */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;}
 .stat{background:#fff;border-radius:14px;padding:0.75rem 0.5rem;border:1px solid #fce4ec;text-align:center;}
-.stat-sub-row{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:4px;}
-.stat-sub{font-size:12px;color:#888;}
-.stat-sub b{font-weight:700;color:#1a1a1a;}
-.stat-divider{color:#ddd;font-size:12px;}
 .stat-label{font-size:11px;color:#999;margin-bottom:4px;}
 .stat-num{font-size:22px;font-weight:700;color:#1a1a1a;}
 .stat-num.pink{color:#e91e8c;}
 .stat-num.green{color:#2e7d32;}
 .stat-num.red{color:#c62828;}
-
-/* 필터 */
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center;}
+.stat-sub-row{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:4px;}
+.stat-sub{font-size:12px;color:#888;}
+.stat-sub b{font-weight:700;color:#1a1a1a;}
+.stat-div{color:#ddd;font-size:12px;}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;align-items:center;}
 .filter-label{font-size:13px;color:#888;}
 .pill{font-size:12px;padding:6px 14px;border-radius:999px;border:1.5px solid #e0e0e0;background:#fff;color:#888;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;font-weight:500;}
 .pill:hover{border-color:#f48fb1;color:#c2185b;}
 .pill.active{background:#e91e8c;border-color:#e91e8c;color:#fff;font-weight:700;}
 .search-input{flex:1;min-width:160px;height:36px;font-size:13px;border:1.5px solid #e0e0e0;border-radius:999px;padding:0 14px;background:#fff;color:#1a1a1a;outline:none;font-family:'Gmarket Sans',sans-serif;}
 .search-input:focus{border-color:#e91e8c;}
+.date-manager-panel{background:#fff;border:1px solid #fce4ec;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1rem;display:none;}
+.date-manager-panel.open{display:block;}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
-
-/* 카드 */
-.card{background:#fff;border:1px solid #fce4ec;border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.18s;position:relative;}
+.card{background:#fff;border:1px solid #fce4ec;border-radius:14px;overflow:hidden;cursor:pointer;transition:all 0.18s;}
 .card:hover{border-color:#e91e8c;transform:translateY(-2px);}
 .card.approved{border-color:#a5d6a7;background:#f1f8e9;}
 .card.rejected{border-color:#ef9a9a;background:#fff5f5;opacity:0.75;}
@@ -65,20 +62,15 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .card-sub{font-size:11px;color:#888;margin-bottom:5px;padding-left:40px;}
 .card-divider{height:0.5px;background:#f0f0f0;margin:5px 0;}
 .card-detail{display:flex;flex-direction:column;gap:2px;margin-bottom:5px;}
-.card-row{display:flex;justify-content:space-between;font-size:11px;}
-.cd-key{color:#bbb;}
-.cd-val{color:#333;font-weight:500;text-align:right;max-width:65%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .card-row-left{display:flex;align-items:center;gap:5px;font-size:11px;flex-wrap:nowrap;overflow:hidden;}
-.card-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.cd-key{color:#bbb;min-width:42px;flex-shrink:0;}
 .tag{font-size:11px;padding:3px 9px;border-radius:999px;font-weight:500;white-space:nowrap;}
 .tag-m{background:#E6F1FB;color:#185FA5;}
 .tag-f{background:#fce4ec;color:#993556;}
 .tag-mbti{background:#f3f0ff;color:#5b21b6;}
 .tag-hashtag{background:#e0f7fa;color:#00695c;}
 .loading{text-align:center;padding:3rem;color:#bbb;font-size:14px;grid-column:1/-1;}
-.empty{text-align:center;padding:2rem;color:#bbb;font-size:14px;}
-
-/* 모달 */
+.empty{text-align:center;padding:2rem;color:#bbb;font-size:14px;grid-column:1/-1;}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;}
 .modal-bg.open{display:flex;}
 .modal{background:#fff;border-radius:24px;width:400px;max-width:95vw;position:relative;overflow:hidden;margin:auto;}
@@ -87,7 +79,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .modal-avatar{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;margin:0 auto 12px;}
 .modal-name{text-align:center;font-size:19px;font-weight:700;color:#1a1a1a;}
 .modal-sub{text-align:center;font-size:13px;color:#888;margin-top:4px;}
-.divider{height:0.5px;background:#f0f0f0;margin:12px 0;}
+.mdivider{height:0.5px;background:#f0f0f0;margin:12px 0;}
 .modal-content{padding:0 1.5rem 1.5rem;}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .info-item{background:#fafafa;border-radius:10px;padding:8px 10px;}
@@ -98,44 +90,24 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .ptag{font-size:12px;padding:4px 10px;border-radius:999px;background:#fff0f8;color:#993556;border:1px solid #f4c0d1;font-weight:500;}
 .insta-link{color:#e91e8c;font-weight:700;text-decoration:none;}
 .status-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
-.btn-approve{height:48px;border-radius:12px;border:none;background:#e91e8c;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;}
+.btn-approve{height:48px;border-radius:12px;border:none;background:#e91e8c;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
 .btn-approve.active{background:#2e7d32;}
-.btn-reject{height:48px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fff;color:#999;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;transition:all 0.15s;}
+.btn-reject{height:48px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fff;color:#999;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
 .btn-reject.active{background:#c62828;border-color:#c62828;color:#fff;}
 .btn-reset{width:100%;height:40px;border-radius:12px;border:1.5px solid #e0e0e0;background:#fff;color:#888;font-size:13px;cursor:pointer;font-family:'Gmarket Sans',sans-serif;margin-top:8px;}
 .saving{text-align:center;font-size:12px;color:#e91e8c;margin-top:8px;display:none;}
 .saving.show{display:block;}
-
-/* ── 탭2: 명단 카드 ── */
+/* 탭2 */
 .card-editor{display:flex;gap:1.5rem;flex-wrap:wrap;}
 .card-settings{flex:1;min-width:260px;}
-.card-settings h3{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:12px;}
-.inp-row{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;}
+.card-settings h3{font-size:14px;font-weight:700;color:#1a1a1a;margin-bottom:10px;}
+.inp-row{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
 .inp-label{font-size:12px;color:#666;font-weight:500;}
 .inp-field{height:40px;border:1.5px solid #e0e0e0;border-radius:10px;padding:0 12px;font-size:13px;font-family:'Gmarket Sans',sans-serif;color:#1a1a1a;outline:none;}
 .inp-field:focus{border-color:#e91e8c;}
-.auto-load-btn{width:100%;height:40px;border-radius:10px;border:1.5px solid #e91e8c;background:#fff0f8;color:#e91e8c;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;margin-bottom:10px;}
-.auto-load-btn:hover{background:#fce4ec;}
-.save-btn{width:100%;height:44px;border-radius:10px;border:none;background:#1a1a1a;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;}
-.save-btn:hover{opacity:0.85;}
-.page-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px;}
-.page-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid #e0e0e0;background:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.page-btn:hover{border-color:#e91e8c;color:#e91e8c;}
-.page-info{font-size:13px;color:#666;}
-.card-preview{flex:1;min-width:300px;display:flex;flex-direction:column;align-items:center;gap:12px;}
-
-/* 명단 카드 실제 디자인 */
-.insta-card{
-  width:480px;max-width:100%;
-  background:#0d0d0d;position:relative;overflow:hidden;
-}
-.insta-card::before{
-  content:'';position:absolute;inset:0;
-  border:1.5px solid transparent;
-  background:linear-gradient(#0d0d0d,#0d0d0d) padding-box,
-             linear-gradient(135deg,#c9a84c,#f0d080,#c9a84c,#8b6914) border-box;
-  pointer-events:none;z-index:10;
-}
+.card-preview{flex:1;min-width:300px;display:flex;flex-direction:column;align-items:center;}
+.insta-card{width:480px;max-width:100%;background:#0d0d0d;position:relative;overflow:hidden;}
+.insta-card::before{content:'';position:absolute;inset:0;border:1.5px solid transparent;background:linear-gradient(#0d0d0d,#0d0d0d) padding-box,linear-gradient(135deg,#c9a84c,#f0d080,#c9a84c,#8b6914) border-box;pointer-events:none;z-index:10;}
 .ic-corner{position:absolute;width:20px;height:20px;z-index:11;}
 .ic-corner.tl{top:10px;left:10px;border-top:1.5px solid #c9a84c;border-left:1.5px solid #c9a84c;}
 .ic-corner.tr{top:10px;right:10px;border-top:1.5px solid #c9a84c;border-right:1.5px solid #c9a84c;}
@@ -154,48 +126,53 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 .ic-col-header{text-align:center;font-size:9px;font-weight:700;letter-spacing:0.25em;color:#c9a84c;margin-bottom:8px;padding-bottom:6px;border-bottom:0.5px solid #2a2620;}
 .ic-person{text-align:center;font-size:10.5px;color:#d4cfc5;font-weight:300;padding:4px 8px;margin-bottom:4px;letter-spacing:0.03em;border:0.5px solid #2a2620;border-radius:999px;background:rgba(201,168,76,0.04);}
 .ic-footer{text-align:center;margin-top:8px;font-size:8px;color:#4a4540;letter-spacing:0.2em;text-transform:uppercase;}
-
-@media(max-width:480px){.stats{grid-template-columns:repeat(3,1fr);}.card-editor{flex-direction:column;}}
+.page-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px;}
+.page-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid #e0e0e0;background:#fff;font-size:16px;cursor:pointer;}
+.page-btn:hover{border-color:#e91e8c;color:#e91e8c;}
+.page-info{font-size:13px;color:#666;}
+.save-btn{width:100%;height:44px;border-radius:10px;border:none;background:#1a1a1a;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;margin-top:12px;}
+.save-btn:hover{opacity:0.85;}
+@media(max-width:480px){.stats{grid-template-columns:repeat(2,1fr);}.card-editor{flex-direction:column;}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="header">
     <h1>✨ 틈파티 <em>운영자</em> 대시보드</h1>
-    <div style="display:flex;gap:8px;">
-      <button class="refresh-btn" id="main-refresh" onclick="loadData()">↻ 새로고침</button>
-      <button class="refresh-btn" style="border-color:#c62828;color:#c62828;" onclick="deleteSelected()">🗑 선택 삭제</button>
-      <button class="refresh-btn" style="border-color:#555;color:#555;" onclick="toggleDateManager()">📅 날짜 관리</button>
+    <div class="hbtns">
+      <button class="hbtn pink" id="main-refresh" onclick="loadData()">↻ 새로고침</button>
+      <button class="hbtn red" onclick="deleteSelected()">🗑 선택 삭제</button>
+      <button class="hbtn" onclick="toggleDateManager()">📅 날짜 관리</button>
     </div>
   </div>
 
-  <!-- 탭 -->
+  <!-- 날짜 관리 패널 -->
+  <div class="date-manager-panel" id="date-manager-panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <span style="font-size:13px;font-weight:700;color:#1a1a1a;">📅 파티 날짜 관리</span>
+      <button onclick="toggleDateManager()" style="background:none;border:none;color:#aaa;font-size:20px;cursor:pointer;line-height:1;">×</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <input id="new-date-input" type="text" placeholder="예) 6/8 (일) 15:00" style="flex:1;height:38px;border:1.5px solid #e0e0e0;border-radius:10px;padding:0 12px;font-size:13px;font-family:'Gmarket Sans',sans-serif;outline:none;"/>
+      <button onclick="addPartyDate()" style="height:38px;padding:0 16px;border-radius:10px;border:none;background:#e91e8c;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;">추가</button>
+    </div>
+    <div id="date-tag-list" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+  </div>
+
   <div class="tabs">
     <div class="tab active" onclick="switchTab(0,this)">📋 신청자 관리</div>
     <div class="tab" onclick="switchTab(1,this)">📣 홍보 명단 카드</div>
   </div>
 
-  <!-- 탭1: 신청자 관리 -->
+  <!-- 탭1 -->
   <div class="tab-content active" id="tab0">
-    <!-- 날짜 관리 패널 -->
-    <div id="date-manager" style="display:none;background:#fff;border:1px solid #fce4ec;border-radius:14px;padding:1rem 1.25rem;margin-bottom:1rem;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-        <span style="font-size:13px;font-weight:700;color:#1a1a1a;">📅 파티 날짜 관리</span>
-        <button onclick="toggleDateManager()" style="background:none;border:none;color:#aaa;font-size:18px;cursor:pointer;">×</button>
-      </div>
-      <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <input id="new-date-input" type="text" placeholder="예) 6/8 (일) 15:00" style="flex:1;height:38px;border:1.5px solid #e0e0e0;border-radius:10px;padding:0 12px;font-size:13px;font-family:'Gmarket Sans',sans-serif;outline:none;"/>
-        <button onclick="addDate()" style="height:38px;padding:0 16px;border-radius:10px;border:none;background:#e91e8c;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Gmarket Sans',sans-serif;">추가</button>
-      </div>
-      <div id="date-list" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-    </div>
     <div class="stats">
       <div class="stat">
         <div class="stat-label">전체 지원자</div>
         <div class="stat-num pink" id="cnt-total">-</div>
         <div class="stat-sub-row">
           <span class="stat-sub">남 <b id="cnt-m">-</b></span>
-          <span class="stat-divider">/</span>
+          <span class="stat-div">/</span>
           <span class="stat-sub">여 <b id="cnt-f">-</b></span>
         </div>
       </div>
@@ -205,10 +182,10 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
       </div>
       <div class="stat">
         <div class="stat-label">승인</div>
-        <div class="stat-num green" id="cnt-approved-m">-</div>
+        <div class="stat-num green" id="cnt-approved">-</div>
         <div class="stat-sub-row">
-          <span class="stat-sub">남 <b id="cnt-approved-m-sub">-</b></span>
-          <span class="stat-divider">/</span>
+          <span class="stat-sub">남 <b id="cnt-approved-m">-</b></span>
+          <span class="stat-div">/</span>
           <span class="stat-sub">여 <b id="cnt-approved-f">-</b></span>
         </div>
       </div>
@@ -217,6 +194,7 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
         <div class="stat-num red" id="cnt-rejected">-</div>
       </div>
     </div>
+
     <div class="filters">
       <span class="filter-label">성별</span>
       <button class="pill active" onclick="setFilter('gender','전체',this)">전체</button>
@@ -229,91 +207,76 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
       <button class="pill" onclick="setFilter('status','탈락',this)">탈락</button>
       <input class="search-input" id="search" placeholder="이름·직업·MBTI 검색..." oninput="renderCards()"/>
     </div>
-    <div class="filters" id="date-filter-row" style="margin-top:-8px;">
+    <div class="filters" style="margin-top:-4px;">
       <span class="filter-label">파티 날짜</span>
-      <div id="date-pills" style="display:flex;gap:8px;flex-wrap:wrap;"></div>
+      <div id="date-filter-pills" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="pill active" onclick="setFilter('date','전체',this)">전체</button>
+      </div>
     </div>
+
     <div class="grid" id="grid"><div class="loading">데이터 불러오는 중... 🩷</div></div>
   </div>
 
-  <!-- 탭2: 홍보 명단 카드 -->
+  <!-- 탭2 -->
   <div class="tab-content" id="tab1">
     <div class="card-editor">
-
-      <!-- 왼쪽: 설정 + 선택 -->
       <div class="card-settings">
         <h3>⚙️ 카드 설정</h3>
         <div class="inp-row">
           <span class="inp-label">날짜</span>
-          <input class="inp-field" id="card-date" value="5 / 31 (일) 15:00"/>
+          <input class="inp-field" id="card-date" value="5 / 31 (일) 15:00" oninput="renderInstaCard()"/>
         </div>
         <div class="inp-row">
           <span class="inp-label">브랜드 문구</span>
-          <input class="inp-field" id="card-brand" value="TEUM PARTY · 참가자 명단"/>
+          <input class="inp-field" id="card-brand" value="TEUM PARTY · 참가자 명단" oninput="renderInstaCard()"/>
         </div>
         <div class="inp-row">
           <span class="inp-label">인스타 계정</span>
-          <input class="inp-field" id="card-insta" value="@teum_party"/>
+          <input class="inp-field" id="card-insta" value="@teum_party" oninput="renderInstaCard()"/>
         </div>
-
-        <div style="height:0.5px;background:#eee;margin:12px 0;"></div>
-        <h3 style="margin-bottom:10px;">👥 참가자 선택</h3>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div style="height:0.5px;background:#eee;margin:10px 0;"></div>
+        <h3 style="margin-bottom:8px;">👥 참가자 선택</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
           <div>
-            <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:6px;letter-spacing:0.05em;">MAN</div>
-            <div id="select-men" style="display:flex;flex-direction:column;gap:5px;max-height:200px;overflow-y:auto;"></div>
+            <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:5px;">MAN</div>
+            <div id="select-men" style="display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto;"></div>
           </div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:#993556;margin-bottom:6px;letter-spacing:0.05em;">WOMAN</div>
-            <div id="select-women" style="display:flex;flex-direction:column;gap:5px;max-height:200px;overflow-y:auto;"></div>
+            <div style="font-size:11px;font-weight:700;color:#993556;margin-bottom:5px;">WOMAN</div>
+            <div id="select-women" style="display:flex;flex-direction:column;gap:4px;max-height:180px;overflow-y:auto;"></div>
           </div>
         </div>
-        <div style="font-size:11px;color:#aaa;margin-bottom:12px;" id="select-count">선택: 남 0명 / 여 0명</div>
-
-        <div style="height:0.5px;background:#eee;margin:12px 0;"></div>
-        <h3 style="margin-bottom:10px;">✏️ 카드 직접 수정</h3>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+        <div style="font-size:11px;color:#aaa;margin-bottom:10px;" id="select-count">선택: 남 0명 / 여 0명</div>
+        <div style="height:0.5px;background:#eee;margin:10px 0;"></div>
+        <h3 style="margin-bottom:8px;">✏️ 직접 수정</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
           <div>
-            <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:4px;">MAN (7줄)</div>
-            <textarea id="edit-man" style="width:100%;height:150px;border:1.5px solid #e0e0e0;border-radius:8px;padding:6px 8px;font-size:11px;font-family:inherit;resize:none;line-height:1.8;outline:none;" oninput="renderCard()"></textarea>
+            <div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:4px;">MAN</div>
+            <textarea id="edit-man" style="width:100%;height:140px;border:1.5px solid #e0e0e0;border-radius:8px;padding:6px 8px;font-size:11px;font-family:inherit;resize:none;line-height:1.8;outline:none;" oninput="renderInstaCard()"></textarea>
           </div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:#993556;margin-bottom:4px;">WOMAN (7줄)</div>
-            <textarea id="edit-woman" style="width:100%;height:150px;border:1.5px solid #e0e0e0;border-radius:8px;padding:6px 8px;font-size:11px;font-family:inherit;resize:none;line-height:1.8;outline:none;" oninput="renderCard()"></textarea>
+            <div style="font-size:11px;font-weight:700;color:#993556;margin-bottom:4px;">WOMAN</div>
+            <textarea id="edit-woman" style="width:100%;height:140px;border:1.5px solid #e0e0e0;border-radius:8px;padding:6px 8px;font-size:11px;font-family:inherit;resize:none;line-height:1.8;outline:none;" oninput="renderInstaCard()"></textarea>
           </div>
         </div>
-
         <div class="page-nav">
           <button class="page-btn" onclick="changePage(-1)">‹</button>
           <span class="page-info" id="page-info">1 / 1 페이지</span>
           <button class="page-btn" onclick="changePage(1)">›</button>
         </div>
-        <div style="margin-top:12px;">
-          <button class="save-btn" onclick="saveCard()">📸 이미지 저장</button>
-        </div>
+        <button class="save-btn" onclick="saveInstaCard()">📸 이미지 저장</button>
       </div>
-
-      <!-- 오른쪽: 카드 미리보기 -->
       <div class="card-preview">
         <div class="insta-card" id="insta-card">
-          <div class="ic-corner tl"></div>
-          <div class="ic-corner tr"></div>
-          <div class="ic-corner bl"></div>
-          <div class="ic-corner br"></div>
+          <div class="ic-corner tl"></div><div class="ic-corner tr"></div>
+          <div class="ic-corner bl"></div><div class="ic-corner br"></div>
           <div class="ic-inner">
             <div class="ic-brand" id="ic-brand">TEUM PARTY · 참가자 명단</div>
             <div class="ic-date" id="ic-date">5 / 31 (일) 15:00</div>
             <div class="ic-divider"><div class="ic-divider-line"></div><div class="ic-diamond"></div><div class="ic-divider-line"></div></div>
             <div class="ic-cols">
-              <div class="ic-col">
-                <div class="ic-col-header">MAN</div>
-                <div id="ic-man"></div>
-              </div>
-              <div class="ic-col">
-                <div class="ic-col-header">WOMAN</div>
-                <div id="ic-woman"></div>
-              </div>
+              <div class="ic-col"><div class="ic-col-header">MAN</div><div id="ic-man"></div></div>
+              <div class="ic-col"><div class="ic-col-header">WOMAN</div><div id="ic-woman"></div></div>
             </div>
             <div class="ic-divider"><div class="ic-divider-line"></div><div class="ic-diamond"></div><div class="ic-divider-line"></div></div>
             <div class="ic-footer" id="ic-footer">@teum_party</div>
@@ -334,19 +297,20 @@ body{background:#fff9fb;font-family:'Gmarket Sans',sans-serif;min-height:100vh;p
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwgr8XHuSe6VNwukcasegsOv7sbL6hS2DF7ZaORBt3qf-fcBgFe9yH9ZFHDOZanUFhjSw/exec';
-const avatarColors=[
+const PER_PAGE=7;
+const AVATAR_COLORS=[
   {bg:'#E6F1FB',text:'#185FA5'},{bg:'#fce4ec',text:'#993556'},
   {bg:'#e8f5e9',text:'#2e7d32'},{bg:'#f3e5f5',text:'#6a1b9a'},
   {bg:'#fff3e0',text:'#e65100'},{bg:'#e0f7fa',text:'#00695c'},
 ];
-let allData=[], filters={gender:'전체',status:'전체',date:'전체'};
-let partyDates=[], selectedDate='전체';
-let currentModalId=null;
-const PER_PAGE=7;
-let cardPage=0;
-let cardMen=[], cardWomen=[];
 
-// 탭 전환
+let allData=[], partyDates=[];
+let filters={gender:'전체',status:'전체',date:'전체'};
+let currentModalId=null;
+let selectedMen=[], selectedWomen=[];
+let cardPage=0;
+
+// ── 탭 전환 ──
 function switchTab(idx,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
@@ -355,39 +319,67 @@ function switchTab(idx,el){
   document.getElementById('main-refresh').style.display=idx===0?'':'none';
 }
 
-// 데이터 로드
+// ── 데이터 로드 ──
 function loadData(){
   document.getElementById('grid').innerHTML='<div class="loading">데이터 불러오는 중... 🩷</div>';
   fetch(SCRIPT_URL)
     .then(r=>r.json())
-    .then(res=>{allData=res.data||res;partyDates=res.dates||[];updateStats();renderCards();buildSelectLists();renderDateFilter();renderDateManager();})
-    .catch(()=>{document.getElementById('grid').innerHTML='<div class="empty">데이터를 불러오지 못했어요 😢</div>';});
+    .then(res=>{
+      if(Array.isArray(res)){allData=res;partyDates=[];}
+      else{allData=res.data||[];partyDates=res.dates||[];}
+      updateStats();
+      renderCards();
+      buildSelectLists();
+      renderDateFilterPills();
+      renderDateTagList();
+    })
+    .catch(()=>{
+      document.getElementById('grid').innerHTML='<div class="empty">데이터를 불러오지 못했어요 😢</div>';
+    });
 }
 
+// ── 통계 ──
 function updateStats(){
-  const now=new Date();
-  const y=now.getFullYear(),m=now.getMonth()+1,d=now.getDate();
   const mCnt=allData.filter(d=>d['성별']==='남성').length;
   const fCnt=allData.filter(d=>d['성별']==='여성').length;
   const mApp=allData.filter(d=>d['성별']==='남성'&&d['상태']==='승인').length;
   const fApp=allData.filter(d=>d['성별']==='여성'&&d['상태']==='승인').length;
   document.getElementById('cnt-total').textContent=allData.length;
-  document.getElementById('cnt-review').textContent=allData.filter(d=>!d['상태']||d['상태']==='검토중').length;
   document.getElementById('cnt-m').textContent=mCnt;
   document.getElementById('cnt-f').textContent=fCnt;
-  document.getElementById('cnt-approved-m').textContent=mApp+fApp;
-  document.getElementById('cnt-approved-m-sub').textContent=mApp;
+  document.getElementById('cnt-review').textContent=allData.filter(d=>!d['상태']||d['상태']==='검토중').length;
+  document.getElementById('cnt-approved').textContent=mApp+fApp;
+  document.getElementById('cnt-approved-m').textContent=mApp;
   document.getElementById('cnt-approved-f').textContent=fApp;
   document.getElementById('cnt-rejected').textContent=allData.filter(d=>d['상태']==='탈락').length;
 }
 
+// ── 필터 ──
 function setFilter(key,val,el){
   filters[key]=val;
-  el.closest('.filters').querySelectorAll(`[onclick*="'${key}'"]`).forEach(b=>b.classList.remove('active'));
+  const scope=key==='date'?'#date-filter-pills':'';
+  if(scope){
+    document.querySelectorAll(scope+' .pill').forEach(b=>b.classList.remove('active'));
+  } else {
+    el.closest('.filters').querySelectorAll('[onclick*="\''+key+'\'"]').forEach(b=>b.classList.remove('active'));
+  }
   el.classList.add('active');
   renderCards();
 }
 
+function renderDateFilterPills(){
+  const container=document.getElementById('date-filter-pills');
+  container.innerHTML='<button class="pill '+(filters.date==='전체'?'active':'')+'" onclick="setFilter(\'date\',\'전체\',this)">전체</button>';
+  partyDates.forEach(d=>{
+    const btn=document.createElement('button');
+    btn.className='pill'+(filters.date===d?' active':'');
+    btn.textContent=d;
+    btn.onclick=function(){setFilter('date',d,this);};
+    container.appendChild(btn);
+  });
+}
+
+// ── 카드 렌더 ──
 function renderCards(){
   const q=document.getElementById('search').value.toLowerCase();
   const filtered=allData.filter(d=>{
@@ -404,34 +396,33 @@ function renderCards(){
   filtered.forEach((d,i)=>{
     const isMale=d['성별']==='남성';
     const status=d['상태']||'검토중';
-    const now=new Date();
-    const isNew=new Date(d['신청일시']).toLocaleDateString('ko-KR')===now.toLocaleDateString('ko-KR');
+    const isNew=new Date(d['신청일시']).toLocaleDateString('ko-KR')===new Date().toLocaleDateString('ko-KR');
     const avatarBg=isMale?'#E6F1FB':'#fce4ec';
     const avatarColor=isMale?'#185FA5':'#993556';
-    const genderLabel=isMale?'남':'여';
     const card=document.createElement('div');
     card.className='card'+(status==='승인'?' approved':status==='탈락'?' rejected':'');
-    card.onclick=()=>openModal(d,avatarColors[i%avatarColors.length]);
+    card.onclick=()=>openModal(d,AVATAR_COLORS[i%AVATAR_COLORS.length]);
     card.innerHTML=`
       <div class="card-body">
         <div class="card-name-row">
           <input type="checkbox" class="card-check" data-id="${d['신청번호']}" onclick="event.stopPropagation()" style="accent-color:#e91e8c;cursor:pointer;flex-shrink:0;"/>
-          <div class="card-avatar" style="background:${avatarBg};color:${avatarColor}">${genderLabel}</div>
+          <div class="card-avatar" style="background:${avatarBg};color:${avatarColor}">${isMale?'남':'여'}</div>
           <div class="card-name">${d['이름']||'—'}${isNew?'<span class="badge-new">NEW</span>':''}</div>
           <span class="status-badge ${status}" style="margin-left:auto;">${status}</span>
         </div>
-        <div class="card-sub">${d['파티날짜']?'📅 '+d['파티날짜']+' · ':''} ${d['나이']||''} · ${d['키']||''} · ${d['직업']||''}</div>
+        <div class="card-sub">${d['파티날짜']?'📅 '+d['파티날짜']+' · ':''}${d['나이']||''} · ${d['키']||''} · ${d['직업']||''}</div>
         <div class="card-divider"></div>
         <div class="card-detail">
-          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">닮은꼴</span><span class="tag ${isMale?'tag-m':'tag-f'}">${d['닮은꼴']||'—'}</span></div>
-          <div class="card-row-left"><span class="cd-key" style="min-width:42px;">MBTI</span><span class="tag tag-mbti">${d['MBTI']||'—'}</span></div>
-          <div class="card-row-left"><span class="cd-key" style="min-width:42px;flex-shrink:0;">태그</span><div style="display:flex;gap:3px;flex-wrap:nowrap;overflow:hidden;">${(d['성격']||'').split(' ').filter(Boolean).map(t=>'<span class="tag tag-hashtag" style="padding:2px 6px;font-size:10px;white-space:nowrap;">'+t+'</span>').join('')||'—'}</div></div>
+          <div class="card-row-left"><span class="cd-key">닮은꼴</span><span class="tag ${isMale?'tag-m':'tag-f'}">${d['닮은꼴']||'—'}</span></div>
+          <div class="card-row-left"><span class="cd-key">MBTI</span><span class="tag tag-mbti">${d['MBTI']||'—'}</span></div>
+          <div class="card-row-left"><span class="cd-key">태그</span><div style="display:flex;gap:3px;overflow:hidden;">${(d['성격']||'').split(' ').filter(Boolean).map(t=>'<span class="tag tag-hashtag" style="font-size:10px;padding:2px 6px;">'+t+'</span>').join('')||'—'}</div></div>
         </div>
       </div>`;
     grid.appendChild(card);
   });
 }
 
+// ── 모달 ──
 function openModal(d,c){
   currentModalId=d['신청번호'];
   const status=d['상태']||'검토중';
@@ -443,20 +434,21 @@ function openModal(d,c){
       <div class="modal-sub">${d['직업']||''} · ${d['MBTI']||''}</div>
     </div>
     <div class="modal-content">
-      <div class="divider"></div>
+      <div class="mdivider"></div>
       <div class="info-grid">
         <div class="info-item"><div class="info-key">성별</div><div class="info-val">${d['성별']||'—'}</div></div>
         <div class="info-item"><div class="info-key">나이</div><div class="info-val">${d['나이']||'—'}</div></div>
         <div class="info-item"><div class="info-key">키</div><div class="info-val">${d['키']||'—'}</div></div>
         <div class="info-item"><div class="info-key">닮은꼴</div><div class="info-val">${d['닮은꼴']||'—'}</div></div>
         <div class="info-item"><div class="info-key">연락처</div><div class="info-val">${d['연락처']||'—'}</div></div>
-        <div class="info-item"><div class="info-key">인스타</div><div class="info-val">${d['인스타']?`<a class="insta-link" href="https://instagram.com/${d['인스타'].replace('@','')}" target="_blank">${d['인스타']}</a>`:'—'}</div></div>
+        <div class="info-item"><div class="info-key">인스타</div><div class="info-val">${d['인스타']?'<a class="insta-link" href="https://instagram.com/'+d['인스타'].replace('@','')+'" target="_blank">'+d['인스타']+'</a>':'—'}</div></div>
+        <div class="info-item" style="grid-column:1/-1"><div class="info-key">파티 날짜</div><div class="info-val">${d['파티날짜']||'—'}</div></div>
       </div>
       <div class="info-full">
         <div class="info-key">성격 태그</div>
-        <div class="tags-row">${tags.map(t=>`<span class="ptag">${t}</span>`).join('')||'—'}</div>
+        <div class="tags-row">${tags.map(t=>'<span class="ptag">'+t+'</span>').join('')||'—'}</div>
       </div>
-      <div class="divider"></div>
+      <div class="mdivider"></div>
       <div style="font-size:13px;font-weight:700;color:#333;margin-bottom:8px;">승인 여부</div>
       <div class="status-row">
         <button class="btn-approve ${status==='승인'?'active':''}" id="btn-approve" onclick="updateStatus('승인')">✅ 승인</button>
@@ -472,51 +464,55 @@ function updateStatus(status){
   if(!currentModalId)return;
   document.getElementById('saving').classList.add('show');
   document.getElementById('saving').textContent='저장 중...';
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'updateStatus',id:currentModalId,status})})
-    .then(()=>{
-      const idx=allData.findIndex(d=>d['신청번호']===currentModalId);
-      if(idx>-1)allData[idx]['상태']=status;
-      document.getElementById('saving').textContent='✅ 저장됨!';
-      setTimeout(()=>{
-        document.getElementById('saving').classList.remove('show');
-        document.getElementById('modal-bg').classList.remove('open');
-        updateStats();renderCards();
-      },800);
-      if(document.getElementById('btn-approve'))document.getElementById('btn-approve').classList.toggle('active',status==='승인');
-      if(document.getElementById('btn-reject'))document.getElementById('btn-reject').classList.toggle('active',status==='탈락');
-    }).catch(()=>{document.getElementById('saving').textContent='저장 실패 😢';});
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'updateStatus',id:currentModalId,status})
+  }).then(()=>{
+    const idx=allData.findIndex(d=>d['신청번호']===currentModalId);
+    if(idx>-1)allData[idx]['상태']=status;
+    document.getElementById('saving').textContent='✅ 저장됨!';
+    setTimeout(()=>{
+      document.getElementById('saving').classList.remove('show');
+      document.getElementById('modal-bg').classList.remove('open');
+      updateStats();renderCards();
+    },800);
+    const ba=document.getElementById('btn-approve');
+    const br=document.getElementById('btn-reject');
+    if(ba)ba.classList.toggle('active',status==='승인');
+    if(br)br.classList.toggle('active',status==='탈락');
+  }).catch(()=>{document.getElementById('saving').textContent='저장 실패 😢';});
 }
 
-function renderDateFilter(){
-  const el=document.getElementById('date-pills');
-  if(!el)return;
-  const all=['전체',...partyDates];
-  el.innerHTML=all.map(d=>`<button class="pill ${filters.date===d?'active':''}" onclick="setDateFilter('${d}',this)">${d}</button>`).join('');
+function closeModal(e){if(e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open');}
+
+// ── 삭제 ──
+function deleteSelected(){
+  const checked=[...document.querySelectorAll('.card-check:checked')].map(cb=>cb.dataset.id);
+  if(!checked.length){alert('삭제할 신청자를 선택해 주세요');return;}
+  if(!confirm(checked.length+'명을 삭제할까요? 복구가 불가능해요.'))return;
+  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'deleteRows',ids:checked})
+  });
+  allData=allData.filter(d=>!checked.includes(String(d['신청번호'])));
+  updateStats();renderCards();
 }
 
-function setDateFilter(val,el){
-  filters.date=val;
-  document.querySelectorAll('#date-pills .pill').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  renderCards();
-}
-
+// ── 날짜 관리 ──
 function toggleDateManager(){
-  const el=document.getElementById('date-manager');
-  el.style.display=el.style.display==='none'?'block':'none';
+  const p=document.getElementById('date-manager-panel');
+  p.classList.toggle('open');
 }
 
-function renderDateManager(){
-  const el=document.getElementById('date-list');
+function renderDateTagList(){
+  const el=document.getElementById('date-tag-list');
   if(!el)return;
   el.innerHTML=partyDates.map(d=>`
     <div style="display:flex;align-items:center;gap:4px;background:#fff0f8;border:1px solid #f8bbd0;border-radius:999px;padding:4px 12px;font-size:12px;color:#c2185b;">
       ${d}
-      <button onclick="removeDate('${d}')" style="background:none;border:none;color:#f48fb1;cursor:pointer;font-size:14px;line-height:1;margin-left:2px;">×</button>
+      <button onclick="removePartyDate('${d}')" style="background:none;border:none;color:#f48fb1;cursor:pointer;font-size:15px;line-height:1;margin-left:2px;">×</button>
     </div>`).join('');
 }
 
-function addDate(){
+function addPartyDate(){
   const val=document.getElementById('new-date-input').value.trim();
   if(!val)return;
   if(partyDates.includes(val)){alert('이미 있는 날짜예요');return;}
@@ -525,7 +521,7 @@ function addDate(){
   document.getElementById('new-date-input').value='';
 }
 
-function removeDate(d){
+function removePartyDate(d){
   if(!confirm(d+' 날짜를 삭제할까요?'))return;
   partyDates=partyDates.filter(x=>x!==d);
   saveDates();
@@ -535,37 +531,16 @@ function saveDates(){
   fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({action:'updateDates',dates:partyDates})
   });
-  renderDateFilter();
-  renderDateManager();
+  renderDateFilterPills();
+  renderDateTagList();
 }
-
-function deleteSelected(){
-  const checked=[...document.querySelectorAll('.card-check:checked')].map(cb=>cb.dataset.id);
-  if(!checked.length){alert('삭제할 신청자를 선택해 주세요');return;}
-  if(!confirm(checked.length+'명을 삭제할까요? 복구가 불가능해요.'))return;
-  fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({action:'deleteRows',ids:checked})
-  }).then(()=>{
-    setTimeout(()=>loadData(),800);
-  });
-  // 즉시 화면에서 제거
-  checked.forEach(id=>{
-    allData=allData.filter(d=>String(d['신청번호'])!==id);
-  });
-  updateStats();renderCards();
-}
-
-function closeModal(e){if(e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open');}
 
 // ── 명단 카드 ──
-let selectedMen=[], selectedWomen=[];
-let cardPages=[]; // [{men:[...], women:[...]}]
-let cardPage=0;
-
 function buildSelectLists(){
   const approved=allData.filter(d=>d['상태']==='승인');
   const men=approved.filter(d=>d['성별']==='남성');
   const women=approved.filter(d=>d['성별']==='여성');
+  selectedMen=[];selectedWomen=[];
 
   const renderSel=(list,el,gender)=>{
     el.innerHTML='';
@@ -575,113 +550,92 @@ function buildSelectLists(){
       const ht=d['키']?d['키'].replace('cm','')+'cm':'?';
       const label=yr+' / '+ht+' / '+(d['직업']||'?');
       const row=document.createElement('label');
-      row.style.cssText='display:flex;align-items:center;gap:6px;font-size:11px;color:#333;cursor:pointer;padding:3px 6px;border-radius:6px;border:1px solid #eee;background:#fff;';
-      row.innerHTML=`<input type="checkbox" data-idx="${i}" data-gender="${gender}" style="accent-color:#e91e8c;cursor:pointer;"/>${label}`;
-      row.querySelector('input').addEventListener('change',onSelectChange);
+      row.style.cssText='display:flex;align-items:center;gap:5px;font-size:11px;color:#333;cursor:pointer;padding:3px 6px;border-radius:6px;border:1px solid #eee;background:#fff;';
+      const cb=document.createElement('input');
+      cb.type='checkbox';
+      cb.style.accentColor='#e91e8c';
+      cb.dataset.idx=i;
+      cb.dataset.gender=gender;
+      cb.addEventListener('change',()=>onSelectChange(men,women));
+      row.appendChild(cb);
+      row.appendChild(document.createTextNode(label));
       el.appendChild(row);
     });
   };
-
   renderSel(men,document.getElementById('select-men'),'남');
   renderSel(women,document.getElementById('select-women'),'여');
-  selectedMen=[]; selectedWomen=[];
   updateSelectCount();
+  syncTextareas(men,women);
 }
 
-function onSelectChange(){
-  const approved=allData.filter(d=>d['상태']==='승인');
-  const men=approved.filter(d=>d['성별']==='남성');
-  const women=approved.filter(d=>d['성별']==='여성');
-
+function onSelectChange(men,women){
   selectedMen=[];selectedWomen=[];
-  document.querySelectorAll('#select-men input:checked').forEach(cb=>{
-    selectedMen.push(men[parseInt(cb.dataset.idx)]);
-  });
-  document.querySelectorAll('#select-women input:checked').forEach(cb=>{
-    selectedWomen.push(women[parseInt(cb.dataset.idx)]);
-  });
+  document.querySelectorAll('#select-men input:checked').forEach(cb=>{selectedMen.push(men[parseInt(cb.dataset.idx)]);});
+  document.querySelectorAll('#select-women input:checked').forEach(cb=>{selectedWomen.push(women[parseInt(cb.dataset.idx)]);});
   updateSelectCount();
-  syncTextareas();
-  renderCard();
+  syncTextareas(men,women);
+  renderInstaCard();
 }
 
 function updateSelectCount(){
   document.getElementById('select-count').textContent='선택: 남 '+selectedMen.length+'명 / 여 '+selectedWomen.length+'명';
 }
 
-function syncTextareas(){
+function syncTextareas(men,women){
   const fmt=d=>{
     const yr=d['연도']?d['연도'].replace('년생',''):'?';
-    const ht=d['키']?d['키'].replace('cm','')+'':' ';
+    const ht=d['키']?d['키'].replace('cm',''):'?';
     return yr+' / '+ht+' / '+(d['직업']||'?');
   };
-  // 7줄 고정
-  const pad=(arr)=>{
-    const lines=arr.map(fmt);
-    while(lines.length<PER_PAGE)lines.push('');
-    return lines.slice(0,PER_PAGE).join('
-');
-  };
+  const pad=arr=>{const lines=arr.map(fmt);while(lines.length<PER_PAGE)lines.push('');return lines.slice(0,PER_PAGE).join('\n');};
   document.getElementById('edit-man').value=pad(selectedMen);
   document.getElementById('edit-woman').value=pad(selectedWomen);
 }
 
 function changePage(dir){
-  const totalPages=Math.max(Math.ceil(selectedMen.length/PER_PAGE),Math.ceil(selectedWomen.length/PER_PAGE),1);
-  cardPage=Math.max(0,Math.min(cardPage+dir,totalPages-1));
-  renderCard();
+  const total=Math.max(Math.ceil(selectedMen.length/PER_PAGE),Math.ceil(selectedWomen.length/PER_PAGE),1);
+  cardPage=Math.max(0,Math.min(cardPage+dir,total-1));
+  renderInstaCard();
 }
 
-function renderCard(){
+function renderInstaCard(){
   document.getElementById('ic-date').textContent=document.getElementById('card-date').value;
   document.getElementById('ic-brand').textContent=document.getElementById('card-brand').value;
   document.getElementById('ic-footer').textContent=document.getElementById('card-insta').value;
-
-  // 텍스트영역에서 직접 읽기
-  const manLines=document.getElementById('edit-man').value.split('
-');
-  const womanLines=document.getElementById('edit-woman').value.split('
-');
-
+  const manLines=document.getElementById('edit-man').value.split('\n');
+  const womanLines=document.getElementById('edit-woman').value.split('\n');
   const renderLines=(lines,el)=>{
     el.innerHTML='';
     for(let i=0;i<PER_PAGE;i++){
       const div=document.createElement('div');
       div.className='ic-person';
       const txt=(lines[i]||'').trim();
-      if(txt){div.textContent=txt;}
-      else{div.textContent=' ';div.style.opacity='0';}
+      div.textContent=txt||'\u00a0';
+      if(!txt)div.style.opacity='0';
       el.appendChild(div);
     }
   };
-
   renderLines(manLines,document.getElementById('ic-man'));
   renderLines(womanLines,document.getElementById('ic-woman'));
-
-  const totalPages=Math.max(Math.ceil(selectedMen.length/PER_PAGE),Math.ceil(selectedWomen.length/PER_PAGE),1);
-  document.getElementById('page-info').textContent=(cardPage+1)+' / '+totalPages+' 페이지';
+  const total=Math.max(Math.ceil(selectedMen.length/PER_PAGE),Math.ceil(selectedWomen.length/PER_PAGE),1);
+  document.getElementById('page-info').textContent=(cardPage+1)+' / '+total+' 페이지';
 }
 
-function saveCard(){
-  renderCard();
+function saveInstaCard(){
+  renderInstaCard();
   setTimeout(()=>{
-    html2canvas(document.getElementById('insta-card'),{
-      scale:3,backgroundColor:'#0d0d0d',useCORS:true,logging:false
-    }).then(canvas=>{
-      const link=document.createElement('a');
-      link.download='틈파티_명단_'+(cardPage+1)+'페이지.png';
-      link.href=canvas.toDataURL('image/png');
-      link.click();
-    });
+    html2canvas(document.getElementById('insta-card'),{scale:3,backgroundColor:'#0d0d0d',useCORS:true,logging:false})
+      .then(canvas=>{
+        const link=document.createElement('a');
+        link.download='틈파티_명단_'+(cardPage+1)+'페이지.png';
+        link.href=canvas.toDataURL('image/png');
+        link.click();
+      });
   },150);
 }
 
-document.getElementById('card-date').addEventListener('input',renderCard);
-document.getElementById('card-brand').addEventListener('input',renderCard);
-document.getElementById('card-insta').addEventListener('input',renderCard);
-
 loadData();
-renderCard();
+renderInstaCard();
 </script>
 </body>
 </html>
