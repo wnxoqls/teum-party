@@ -546,7 +546,11 @@ function fillCardDateSelect(){
   if(!sel)return;
   const cur=sel.value;
   sel.innerHTML='<option value="">날짜 선택</option>';
-  partyDates.forEach(d=>{
+  [...partyDates].sort((a,b)=>{
+    const da=parseDate(a),db=parseDate(b);
+    if(da&&db)return db-da;
+    return 0;
+  }).forEach(d=>{
     const o=document.createElement('option');
     o.value=d;o.textContent=d;
     if(d===cur)o.selected=true;
