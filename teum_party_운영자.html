@@ -569,21 +569,27 @@ function renderCard(){
 
 function saveCard(){
   renderCard();
+  // 탭1을 잠깐 보이게 했다가 캡처
+  const tab1=document.getElementById('tab1');
+  const wasHidden=tab1.style.display==='none'||!tab1.classList.contains('active');
+  if(wasHidden){
+    tab1.style.display='block';
+    tab1.style.visibility='hidden';
+  }
   const card=document.getElementById('insta-card');
-  // 잠깐 body에 복제해서 캡처
-  const clone=card.cloneNode(true);
-  clone.style.cssText='position:fixed;top:-9999px;left:-9999px;width:420px;z-index:-1;';
-  document.body.appendChild(clone);
   setTimeout(()=>{
-    html2canvas(clone,{scale:3,backgroundColor:'#0d0d0d',useCORS:true,logging:false,allowTaint:true})
+    html2canvas(card,{scale:3,backgroundColor:'#0d0d0d',useCORS:true,logging:false,allowTaint:true})
       .then(c=>{
-        document.body.removeChild(clone);
+        if(wasHidden){tab1.style.display='';tab1.style.visibility='';}
         const a=document.createElement('a');
         a.download='틈파티_명단_'+(cardPage+1)+'페이지.png';
         a.href=c.toDataURL('image/png');
         a.click();
-      }).catch(()=>{document.body.removeChild(clone);alert('저장 실패 😢 다시 시도해주세요');});
-  },300);
+      }).catch(err=>{
+        if(wasHidden){tab1.style.display='';tab1.style.visibility='';}
+        console.error(err);alert('저장 실패 😢 다시 시도해주세요');
+      });
+  },200);
 }
 
 loadData();
